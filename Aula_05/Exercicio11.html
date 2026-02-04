@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 9</title>
+</head>
+<body>
+    <h1>Exercício 9</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let lista = [10, 20, 30, 40, 50];
+
+        // 1. Criar cópia (slice sem argumentos copia tudo)
+        let copia = lista.slice();
+
+        // 2. Alterar ordem (reverse)
+        copia.reverse(); // Agora é [50, 40, 30, 20, 10]
+
+        // 3. Substituir valor com splice
+        // No índice 2 (que agora é o 30), troca por 999
+        copia.splice(2, 1, 999);
+
+        // Usando outros métodos pedidos
+        copia.push(100); // Adiciona no fim
+        copia.shift();   // Remove o primeiro (50)
+
+        console.log("Original:", lista);
+        console.log("Final:", copia);
+    </script>
+</body>
+</html>

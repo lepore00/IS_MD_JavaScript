@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 07 - Ex 05 (Filter + Map)</title>
+</head>
+
+<body>
+    <h1>Aula 07 - Ex 05 (Filter + Map)</h1>
+
+    <script>
+        // Array de números
+        let numeros = [5, 10, 15, 20, 25];
+
+        // Filtra números maiores que 10 e dobra os valores
+        let resultado = numeros
+            .filter(function (numero) {
+                return numero > 10;
+            })
+            .map(function (numero) {
+                return numero * 2;
+            });
+
+        console.log("Resultado final:", resultado);
+    </script>
+</body>
+
+</html>

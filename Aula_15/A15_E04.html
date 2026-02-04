@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 15 - Ex 04 (Erros Avançados)</title>
+</head>
+
+<body>
+    <h1>Aula 15 - Ex 04 (Erros Avançados)</h1>
+
+    <script>
+        fetch("https://jsonplaceholder.typicode.com/posts123")
+            .then(function (resposta) {
+                if (!resposta.ok) {
+                    throw "Erro HTTP: " + resposta.status;
+                }
+                return resposta.json();
+            })
+            .then(function (dados) {
+                if (dados.length === 0) {
+                    throw "Nenhum dado encontrado.";
+                }
+                console.log(dados);
+            })
+            .catch(function (erro) {
+                console.log("Erro tratado:", erro);
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 07 - Ex 03 (filter)</title>
+</head>
+
+<body>
+    <h1>Aula 07 - Ex 03 (filter)</h1>
+
+    <script>
+        // Array de idades
+        let idades = [12, 18, 25, 14, 30, 16];
+
+        // Filtra apenas maiores de idade
+        let maiores = idades.filter(function (idade) {
+            return idade >= 18;
+        });
+
+        console.log("Todas as idades:", idades);
+        console.log("Maiores de idade:", maiores);
+    </script>
+</body>
+
+</html>

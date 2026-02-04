@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 5</title>
+</head>
+<body>
+    <h1>Exercício 5</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let original = ["Banana", "Maçã", "Uva", "Pera"];
+        
+        // 1. Fazer cópia (usando slice)
+        let copia = original.slice();
+
+        // 2. Remover o primeiro elemento (shift)
+        copia.shift();
+
+        // 3. Adicionar novo elemento no final (push)
+        copia.push("Melancia");
+
+        // 4. Substituir elemento específico (splice)
+        // Vamos substituir o que está no índice 1 ("Uva") por "Manga"
+        // splice(índice, quantos_remover, o_que_adicionar)
+        copia.splice(1, 1, "Manga");
+
+        console.log("Original:", original);
+        console.log("Cópia Modificada:", copia);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 12 - Ex 02 (Objeto no Local Storage)</title>
+</head>
+
+<body>
+    <h1>Aula 12 - Ex 02 (Objeto no Local Storage)</h1>
+
+    <button id="salvar">Salvar Usuário</button>
+    <button id="ler">Ler Usuário</button>
+
+    <script>
+        let btnSalvar = document.getElementById("salvar");
+        let btnLer = document.getElementById("ler");
+
+        btnSalvar.addEventListener("click", function () {
+            let usuario = {
+                nome: "Ana",
+                idade: 25,
+                email: "ana@email.com"
+            };
+
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            alert("Usuário salvo!");
+        });
+
+        btnLer.addEventListener("click", function () {
+            let dados = localStorage.getItem("usuario");
+            let usuario = JSON.parse(dados);
+
+            console.log("Nome:", usuario.nome);
+            console.log("Idade:", usuario.idade);
+            console.log("Email:", usuario.email);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 10</title>
+</head>
+<body>
+    <h1>Exercício 10</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [4, 5, 8, 10, 2, 7];
+        let novoArray = [];
+
+        for (let i = 0; i < numeros.length; i++) {
+            let n = numeros[i];
+
+            // Truque para usar Switch com condições (true)
+            switch (true) {
+                case (n % 4 === 0):
+                    // Multiplo de 4: divide por 2
+                    novoArray.push(n / 2);
+                    break;
+
+                case (n % 5 === 0):
+                    // Multiplo de 5: ignore (não faz push)
+                    // O break sai do switch e o loop continua
+                    break; 
+
+                default:
+                    // Outros: soma valor + índice
+                    novoArray.push(n + i);
+                    break;
+            }
+        }
+
+        console.log("Original:", numeros);
+        console.log("Final:", novoArray);
+    </script>
+</body>
+</html>

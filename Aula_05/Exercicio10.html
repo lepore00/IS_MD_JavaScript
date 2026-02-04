@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 8</title>
+</head>
+<body>
+    <h1>Exercício 8</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [10, 20, 30, 40, 50];
+        let resultado = [];
+
+        for (let i = 0; i < numeros.length; i++) {
+            let valor = numeros[i];
+
+            if (i % 2 === 0) {
+                // Índice Par: Valor + Índice
+                resultado.push(valor + i);
+            } else {
+                // Índice Ímpar: Apenas valor
+                resultado.push(valor);
+            }
+        }
+
+        console.log("Original:", numeros);
+        console.log("Resultado:", resultado);
+    </script>
+</body>
+</html>

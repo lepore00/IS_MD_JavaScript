@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Completa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .app-container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* Input */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #4CAF50;
+        }
+
+        button {
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        button#addBtn {
+            background: #4CAF50;
+            color: white;
+            padding: 0 20px;
+            font-size: 16px;
+        }
+
+        button#addBtn:hover {
+            background: #45a049;
+        }
+
+        /* Lista */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li.concluida span {
+            text-decoration: line-through;
+            color: #aaa;
+        }
+
+        li span {
+            font-size: 18px;
+            flex: 1;
+            margin-right: 15px;
+            word-break: break-word;
+        }
+
+        /* Botões de Ação */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            width: 35px;
+            height: 35px;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-check {
+            background: #007bff;
+        }
+
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+        }
+
+        .btn-action:hover {
+            opacity: 0.8;
+        }
+
+        #contador {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <center>
+            <h2>📋 Minhas Tarefas</h2>
+        </center>
+
+        <div class="input-group">
+            <input type="text" id="novaTarefa" placeholder="Adicionar nova tarefa...">
+            <button id="addBtn">➕ Adicionar</button>
+        </div>
+
+        <ul id="listaTarefas"></ul>
+        <p id="contador">Carregando...</p>
+    </div>
+
+    <script>
+        // 1. Elementos
+        const input = document.getElementById('novaTarefa');
+        const btnAdd = document.getElementById('addBtn');
+        const lista = document.getElementById('listaTarefas');
+        const contador = document.getElementById('contador');
+
+        // 2. Estado Inicial (LocalStorage)
+        let tarefas = JSON.parse(localStorage.getItem('tarefas_db')) || [];
+
+        // 3. Funções CRUD
+        function renderizar() {
+            lista.innerHTML = '';
+            tarefas.forEach(tarefa => {
+                const li = document.createElement('li');
+                if (tarefa.concluida) li.classList.add('concluida');
+
+                li.innerHTML = `
+                    <span>${tarefa.texto}</span>
+                    <div class="actions">
+                        <button class="btn-action btn-check" onclick="alternarConclusao(${tarefa.id})" title="Concluir">✓</button>
+                        <button class="btn-action btn-edit" onclick="editarTarefa(${tarefa.id})" title="Editar">✏️</button>
+                        <button class="btn-action btn-delete" onclick="deletarTarefa(${tarefa.id})" title="Excluir">🗑️</button>
+                    </div>
+                `;
+                lista.appendChild(li);
+            });
+            atualizarContador();
+        }
+
+        function adicionarTarefa() {
+            const texto = input.value.trim();
+            if (!texto) return alert("Escreva algo!");
+
+            tarefas.push({ id: Date.now(), texto, concluida: false });
+            salvarERenderizar();
+            input.value = '';
+            input.focus();
+        }
+
+        function editarTarefa(id) {
+            const tarefa = tarefas.find(t => t.id === id);
+            if (tarefa) {
+                const novoTexto = prompt("Editar tarefa:", tarefa.texto);
+                if (novoTexto !== null && novoTexto.trim() !== "") {
+                    tarefa.texto = novoTexto.trim();
+                    salvarERenderizar();
+                }
+            }
+        }
+
+        function deletarTarefa(id) {
+            if (confirm("Apagar tarefa?")) {
+                tarefas = tarefas.filter(t => t.id !== id);
+                salvarERenderizar();
+            }
+        }
+
+        function alternarConclusao(id) {
+            const tarefa = tarefas.find(t => t.id === id);
+            if (tarefa) {
+                tarefa.concluida = !tarefa.concluida;
+                salvarERenderizar();
+            }
+        }
+
+        function salvarERenderizar() {
+            localStorage.setItem('tarefas_db', JSON.stringify(tarefas));
+            renderizar();
+        }
+
+        function atualizarContador() {
+            const feitas = tarefas.filter(t => t.concluida).length;
+            contador.innerText = `${feitas} concluída(s) de ${tarefas.length} tarefa(s).`;
+        }
+
+        // 4. Eventos
+        btnAdd.addEventListener('click', adicionarTarefa);
+        input.addEventListener('keyup', (e) => { if (e.key === 'Enter') adicionarTarefa(); });
+
+        // 5. Início
+        renderizar();
+    </script>
+</body>
+
+</html>

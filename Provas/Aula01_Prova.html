@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A01 - Calculadora</title>
+</head>
+
+<body>
+    <h1>Calculadora JavaScript</h1>
+    <p>Abra o <strong>Console</strong> do navegador (F12) para ver os resultados.</p>
+
+    <script>
+        // --- ETAPA 1: Entrada de Dados ---
+
+        // Solicita o primeiro número ao usuário e converte o texto para Número (Number)
+        // O prompt retorna sempre uma string, por isso usamos Number() para permitir cálculos matemáticos
+        let numero1 = Number(prompt("Digite o primeiro número:"));
+
+        // Solicita o segundo número ao usuário e também converte para Número
+        let numero2 = Number(prompt("Digite o segundo número:"));
+
+        // Exibe os números escolhidos no console para conferência
+        console.log("Números escolhidos: " + numero1 + " e " + numero2);
+        console.log("-------------------------------");
+
+        // --- ETAPA 2: Operações Aritméticas e Atribuição ---
+
+        // 1. ADIÇÃO (+) usando atribuição (+=)
+        let resultadoSoma = numero1; // Inicializa a variável com o primeiro número
+        resultadoSoma += numero2;    // Soma o valor de numero2 ao valor atual (equivalente a: resultadoSoma = resultadoSoma + numero2)
+        console.log("Resultado da Adição (+): " + resultadoSoma);
+
+        // 2. SUBTRAÇÃO (-) usando atribuição (-=)
+        let resultadoSub = numero1;  // Reinicia com o primeiro número
+        resultadoSub -= numero2;     // Subtrai numero2 do valor atual
+        console.log("Resultado da Subtração (-): " + resultadoSub);
+
+        // 3. MULTIPLICAÇÃO (*) usando atribuição (*=)
+        let resultadoMult = numero1; // Reinicia com o primeiro número
+        resultadoMult *= numero2;    // Multiplica o valor atual por numero2
+        console.log("Resultado da Multiplicação (*): " + resultadoMult);
+
+        // 4. DIVISÃO (/) usando atribuição (/=)
+        let resultadoDiv = numero1;  // Reinicia com o primeiro número
+        resultadoDiv /= numero2;     // Divide o valor atual por numero2
+        console.log("Resultado da Divisão (/): " + resultadoDiv);
+
+        // 5. RESTO DA DIVISÃO (%) usando atribuição (%=)
+        let resultadoResto = numero1; // Reinicia com o primeiro número
+        resultadoResto %= numero2;    // Calcula o resto da divisão do valor atual por numero2
+        console.log("Resultado do Resto (%): " + resultadoResto);
+
+    </script>
+</body>
+
+</html>

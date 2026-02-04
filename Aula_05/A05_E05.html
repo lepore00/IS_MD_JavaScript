@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 05 - Ex 05 (Integração Geral)</title>
+</head>
+
+<body>
+    <h1>Aula 05 - Ex 05 (Integração Geral)</h1>
+
+    <script>
+        // Array para armazenar notas
+        let notas = [];
+
+        // Quantidade de notas
+        let quantidade = 3;
+
+        // Loop para pedir as notas
+        for (let i = 0; i < quantidade; i++) {
+            let nota = Number(prompt("Digite a nota " + (i + 1) + ":"));
+            notas.push(nota);
+        }
+
+        // Calculando a soma das notas
+        let soma = 0;
+
+        for (let i = 0; i < notas.length; i++) {
+            soma += notas[i];
+        }
+
+        // Calculando a média
+        let media = soma / notas.length;
+
+        console.log("Notas:", notas);
+        console.log("Média:", media);
+
+        // Verificando aprovação
+        if (media >= 7) {
+            console.log("Aluno APROVADO");
+        } else {
+            console.log("Aluno REPROVADO");
+        }
+    </script>
+</body>
+
+</html>

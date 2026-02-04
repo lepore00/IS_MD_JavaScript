@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSIA-A14 - Consumo de API</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        
+        h1 { text-align: center; color: #333; }
+
+        /* Estilo do Botão */
+        button#btnBuscar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 20px;
+        }
+        button#btnBuscar:hover { background-color: #0056b3; }
+
+        /* Área de Resultados */
+        #resultado { list-style: none; padding: 0; }
+
+        /* Cartão de Usuário */
+        .card-usuario {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #007bff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .card-usuario h3 { margin: 0 0 5px 0; color: #333; }
+        .card-usuario p { margin: 0; color: #666; }
+
+        /* Mensagens de Estado */
+        .msg-carregando { text-align: center; color: #666; font-style: italic; }
+        .msg-erro { 
+            background-color: #f8d7da; 
+            color: #721c24; 
+            padding: 15px; 
+            border-radius: 8px; 
+            text-align: center; 
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Animação suave */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lista de Usuários (API)</h1>
+        
+        <button id="btnBuscar">📥 Buscar Usuários</button>
+
+        <ul id="resultado">
+            </ul>
+    </div>
+
+    <script>
+        // Seletores
+        const btnBuscar = document.getElementById('btnBuscar');
+        const listaResultado = document.getElementById('resultado');
+
+        // URL da API Pública (JSONPlaceholder)
+        const URL_API = 'https://jsonplaceholder.typicode.com/users';
+
+        // Função Assíncrona para buscar dados
+        async function buscarDados() {
+            // 1. Limpa a lista e mostra "Carregando..."
+            listaResultado.innerHTML = '<li class="msg-carregando">Carregando dados da nuvem...</li>';
+
+            try {
+                // REQUISITO: Realizando Requisição HTTP (fetch)
+                // O 'await' faz o JS esperar a resposta da internet antes de continuar
+                const resposta = await fetch(URL_API);
+
+                // Boa prática: Verificar se a resposta HTTP foi sucesso (Código 200-299)
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP: ${resposta.status}`);
+                }
+
+                // REQUISITO: Manipulação de Dados JSON
+                // Converte o texto bruto da resposta para um Objeto JavaScript (Array)
+                const usuarios = await resposta.json();
+
+                // Limpa a mensagem de carregando
+                listaResultado.innerHTML = '';
+
+                // REQUISITO: Exibição Dinâmica (createElement)
+                usuarios.forEach(usuario => {
+                    // Cria o elemento LI (Card)
+                    const itemLista = document.createElement('li');
+                    itemLista.className = 'card-usuario';
+
+                    // Preenche o HTML interno com Template String
+                    // Exibindo Nome, Email e Empresa
+                    itemLista.innerHTML = `
+                        <h3>${usuario.name}</h3>
+                        <p>📧 ${usuario.email}</p>
+                        <p>🏢 ${usuario.company.name}</p>
+                    `;
+
+                    // Adiciona na tela (appendChild)
+                    listaResultado.appendChild(itemLista);
+                });
+
+            } catch (erro) {
+                // REQUISITO: Lidando com Erros (try...catch)
+                console.error("Falha na requisição:", erro);
+                
+                listaResultado.innerHTML = `
+                    <li class="msg-erro">
+                        <strong>Ops! Algo deu errado.</strong><br>
+                        Não foi possível carregar os usuários.<br>
+                        <em>Detalhe: ${erro.message}</em>
+                    </li>
+                `;
+            }
+        }
+
+        // Adiciona o evento de clique
+        btnBuscar.addEventListener('click', buscarDados);
+
+    </script>
+</body>
+</html>

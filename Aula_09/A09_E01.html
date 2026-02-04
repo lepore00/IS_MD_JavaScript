@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 09 - Ex 01 (Função + Objeto)</title>
+</head>
+
+<body>
+    <h1>Aula 09 - Ex 01 (Função + Objeto)</h1>
+
+    <script>
+        // Função que recebe um objeto pessoa
+        function exibirPessoa(pessoa) {
+            console.log("Nome:", pessoa.nome);
+            console.log("Idade:", pessoa.idade);
+            console.log("Profissão:", pessoa.profissao);
+        }
+
+        // Objeto pessoa
+        let pessoa = {
+            nome: "Lucas",
+            idade: 29,
+            profissao: "Analista"
+        };
+
+        // Chamando a função
+        exibirPessoa(pessoa);
+    </script>
+</body>
+
+</html>

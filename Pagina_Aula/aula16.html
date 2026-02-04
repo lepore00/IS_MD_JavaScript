@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 16 - Projeto Final | Wiki JS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h3>JS Tutorial</h3>
+        <a href="index.html">🏠 Home</a>
+        <a href="aula01.html">Aula 01 - Introdução</a>
+        <a href="aula02.html">Aula 02 - Condicionais</a>
+        <a href="aula03.html">Aula 03 - Laços</a>
+        <a href="aula04.html">Aula 04 - Arrays</a>
+        <a href="aula05.html">Aula 05 - Revisão I</a>
+        <a href="aula06.html">Aula 06 - Funções</a>
+        <a href="aula07.html">Aula 07 - Métodos Array</a>
+        <a href="aula08.html">Aula 08 - Objetos</a>
+        <a href="aula09.html">Aula 09 - Revisão II</a>
+        <a href="aula10.html">Aula 10 - DOM I</a>
+        <a href="aula11.html">Aula 11 - DOM II (Eventos)</a>
+        <a href="aula12.html">Aula 12 - Local Storage</a>
+        <a href="aula13.html">Aula 13 - Erros e Módulos</a>
+        <a href="aula14.html">Aula 14 - API I</a>
+        <a href="aula15.html">Aula 15 - API II</a>
+        <a href="aula16.html" class="active">Aula 16 - Projeto Final</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Aula 16: Projeto Final - Aplicação Web Completa</h1>
+        <p>Chegamos ao fim do módulo! O objetivo agora é consolidar todo o conhecimento adquirido criando uma <strong>Lista de Tarefas (To-Do List)</strong> completa e funcional.</p>
+
+        <h2>1. Requisitos do Projeto</h2>
+        <p>A aplicação deve reunir os conceitos de Arrays, Objetos, Funções, Eventos e Persistência de Dados. As funcionalidades exigidas são:</p>
+        <ul>
+            <li><strong>Criar (Create):</strong> Adicionar uma nova tarefa à lista.</li>
+            <li><strong>Ler (Read):</strong> Exibir as tarefas salvas na tela.</li>
+            <li><strong>Atualizar (Update):</strong> Editar o texto de uma tarefa e marcar como concluída/pendente.</li>
+            <li><strong>Deletar (Delete):</strong> Remover uma tarefa definitivamente.</li>
+            <li><strong>Persistência:</strong> Usar o <code>localStorage</code> para que os dados não sumam ao atualizar a página.</li>
+        </ul>
+
+        <h2>2. Estrutura de Dados</h2>
+        <p>Cada tarefa será um <strong>Objeto</strong> armazenado dentro de um <strong>Array</strong>. Exemplo:</p>
+        <div class="code-box">
+let tarefas = [
+    {
+        id: 1723456789,      // ID único (Timestamp)
+        texto: "Estudar JS", // O conteúdo da tarefa
+        concluida: false     // Estado (feita ou não)
+    }
+];
+        </div>
+
+        <h2>3. Código Completo</h2>
+        <p>Copia o código abaixo, cola num novo ficheiro chamado <code>projeto_final.html</code> e abre no navegador para ver o resultado final.</p>
+
+        <div class="code-box">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-br"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;To-Do List Completa&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; padding-top: 50px; }
+        
+        .app-container { background: white; width: 100%; max-width: 500px; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; border-bottom: 2px solid #4CAF50; display: inline-block; padding-bottom: 5px; }
+
+        /* Input */
+        .input-group { display: flex; gap: 10px; margin-bottom: 25px; }
+        .input-group input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; outline: none; }
+        .input-group input:focus { border-color: #4CAF50; }
+        
+        button { border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button#addBtn { background: #4CAF50; color: white; padding: 0 20px; font-size: 16px; }
+        button#addBtn:hover { background: #45a049; }
+
+        /* Lista */
+        ul { list-style: none; padding: 0; margin: 0; }
+        li { background: #fff; border-bottom: 1px solid #f0f0f0; padding: 15px 10px; display: flex; justify-content: space-between; align-items: center; }
+        li.concluida span { text-decoration: line-through; color: #aaa; }
+        li span { font-size: 18px; flex: 1; margin-right: 15px; word-break: break-word; }
+
+        /* Botões de Ação */
+        .actions { display: flex; gap: 8px; }
+        .btn-action { width: 35px; height: 35px; color: white; font-size: 14px; display: flex; align-items: center; justify-content: center;}
+        .btn-check { background: #007bff; }
+        .btn-edit { background: #ffc107; color: #333; }
+        .btn-delete { background: #dc3545; }
+        .btn-action:hover { opacity: 0.8; }
+
+        #contador { text-align: center; color: #888; font-size: 14px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div class="app-container"&gt;
+        &lt;center&gt;&lt;h2&gt;📋 Minhas Tarefas&lt;/h2&gt;&lt;/center&gt;
+        
+        &lt;div class="input-group"&gt;
+            &lt;input type="text" id="novaTarefa" placeholder="Adicionar nova tarefa..."&gt;
+            &lt;button id="addBtn"&gt;➕ Adicionar&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;ul id="listaTarefas"&gt;&lt;/ul&gt;
+        &lt;p id="contador"&gt;Carregando...&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        // 1. Elementos
+        const input = document.getElementById('novaTarefa');
+        const btnAdd = document.getElementById('addBtn');
+        const lista = document.getElementById('listaTarefas');
+        const contador = document.getElementById('contador');
+
+        // 2. Estado Inicial (LocalStorage)
+        let tarefas = JSON.parse(localStorage.getItem('tarefas_db')) || [];
+
+        // 3. Funções CRUD
+        function renderizar() {
+            lista.innerHTML = '';
+            tarefas.forEach(tarefa =&gt; {
+                const li = document.createElement('li');
+                if (tarefa.concluida) li.classList.add('concluida');
+
+                li.innerHTML = `
+                    &lt;span&gt;${tarefa.texto}&lt;/span&gt;
+                    &lt;div class="actions"&gt;
+                        &lt;button class="btn-action btn-check" onclick="alternarConclusao(${tarefa.id})" title="Concluir"&gt;✓&lt;/button&gt;
+                        &lt;button class="btn-action btn-edit" onclick="editarTarefa(${tarefa.id})" title="Editar"&gt;✏️&lt;/button&gt;
+                        &lt;button class="btn-action btn-delete" onclick="deletarTarefa(${tarefa.id})" title="Excluir"&gt;🗑️&lt;/button&gt;
+                    &lt;/div&gt;
+                `;
+                lista.appendChild(li);
+            });
+            atualizarContador();
+        }
+
+        function adicionarTarefa() {
+            const texto = input.value.trim();
+            if (!texto) return alert("Escreva algo!");
+            
+            tarefas.push({ id: Date.now(), texto, concluida: false });
+            salvarERenderizar();
+            input.value = '';
+            input.focus();
+        }
+
+        function editarTarefa(id) {
+            const tarefa = tarefas.find(t =&gt; t.id === id);
+            if (tarefa) {
+                const novoTexto = prompt("Editar tarefa:", tarefa.texto);
+                if (novoTexto !== null && novoTexto.trim() !== "") {
+                    tarefa.texto = novoTexto.trim();
+                    salvarERenderizar();
+                }
+            }
+        }
+
+        function deletarTarefa(id) {
+            if(confirm("Apagar tarefa?")) {
+                tarefas = tarefas.filter(t =&gt; t.id !== id);
+                salvarERenderizar();
+            }
+        }
+
+        function alternarConclusao(id) {
+            const tarefa = tarefas.find(t =&gt; t.id === id);
+            if (tarefa) {
+                tarefa.concluida = !tarefa.concluida;
+                salvarERenderizar();
+            }
+        }
+
+        function salvarERenderizar() {
+            localStorage.setItem('tarefas_db', JSON.stringify(tarefas));
+            renderizar();
+        }
+
+        function atualizarContador() {
+            const feitas = tarefas.filter(t =&gt; t.concluida).length;
+            contador.innerText = `${feitas} concluída(s) de ${tarefas.length} tarefa(s).`;
+        }
+
+        // 4. Eventos
+        btnAdd.addEventListener('click', adicionarTarefa);
+        input.addEventListener('keyup', (e) =&gt; { if(e.key === 'Enter') adicionarTarefa(); });
+
+        // 5. Início
+        renderizar();
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </div>
+
+        <div class="nav-buttons">
+            <a href="aula15.html" class="btn">❮ Aula 15</a>
+            <span class="btn" style="background-color: #333; cursor: default;">Fim do Curso 🎓</span>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Aula 02 - Ex 01 (Operadores Lógicos)</title>
+</head>
+
+<body>
+    <h1>Aula 02 - Ex 01 (Operadores Lógicos)</h1>
+
+    <script>
+        // 1) Pedimos dois números ao usuário (prompt sempre retorna texto)
+        let numero1Texto = prompt("Digite o primeiro número:");
+        let numero2Texto = prompt("Digite o segundo número:");
+
+        // 2) Convertendo os textos para número
+        // Number() transforma "10" em 10 (número)
+        let numero1 = Number(numero1Texto);
+        let numero2 = Number(numero2Texto);
+
+        // 3) Criando condições simples (resultado true/false)
+        let numero1EhPositivo = numero1 > 0;
+        let numero2EhPositivo = numero2 > 0;
+
+        // 4) Ambos positivos: os dois precisam ser verdadeiros
+        let ambosPositivos = numero1EhPositivo && numero2EhPositivo;
+
+        // 5) Pelo menos um positivo: basta um ser verdadeiro
+        let peloMenosUmPositivo = numero1EhPositivo || numero2EhPositivo;
+
+        // 6) Nenhum positivo: significa que NÃO existe nenhum positivo
+        // "Nenhum é positivo" = NOT (pelo menos um positivo)
+        let nenhumPositivo = !peloMenosUmPositivo;
+
+        // 7) Exibindo resultados no console
+        console.log("Número 1:", numero1, "é positivo?", numero1EhPositivo);
+        console.log("Número 2:", numero2, "é positivo?", numero2EhPositivo);
+        console.log("Ambos positivos?", ambosPositivos);
+        console.log("Pelo menos um positivo?", peloMenosUmPositivo);
+        console.log("Nenhum positivo?", nenhumPositivo);
+    </script>
+</body>
+
+</html>

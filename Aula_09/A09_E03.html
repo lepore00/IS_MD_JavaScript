@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 09 - Ex 03 (map + Objetos)</title>
+</head>
+
+<body>
+    <h1>Aula 09 - Ex 03 (map + Objetos)</h1>
+
+    <script>
+        let produtos = [
+            { nome: "Caderno", preco: 20 },
+            { nome: "Caneta", preco: 5 },
+            { nome: "Mochila", preco: 150 }
+        ];
+
+        // Criando novo array apenas com os preços
+        let precos = produtos.map(function (produto) {
+            return produto.preco;
+        });
+
+        console.log("Preços:", precos);
+    </script>
+</body>
+
+</html>

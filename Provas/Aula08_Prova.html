@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Prática: Objetos JS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 { color: #2c3e50; }
+        h2 { color: #e67e22; border-bottom: 2px solid #e67e22; padding-bottom: 5px; margin-top: 30px;}
+        .conceito {
+            background-color: #fff;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .codigo-resultado {
+            background-color: #2d3436;
+            color: #55efc4;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        strong { color: #d35400; }
+    </style>
+</head>
+<body>
+
+    <h1>Entendendo Objetos no JavaScript</h1>
+    <p>Abaixo, temos a explicação dos conceitos usando a analogia da <strong>Mochila</strong> e o resultado do código rodando ao vivo.</p>
+
+    <div class="conceito">
+        <h3>1. O Objeto Literal (A Mochila)</h3>
+        <p>Imagine que o objeto <code>aluno</code> é uma mochila. Dentro dela, guardamos itens organizados (propriedades) e até ferramentas (métodos/funções).</p>
+        <p><strong>Conceito do 'this':</strong> É como a ferramenta sabe que deve usar os itens DESTA mochila, e não da mochila do vizinho.</p>
+    </div>
+
+    <div class="conceito">
+        <h3>2. Desestruturação (Tirar da Mochila)</h3>
+        <p>É um atalho. Em vez de abrir a mochila toda vez que quiser saber o nome (<code>aluno.nome</code>), você tira o nome de dentro dela e guarda no bolso (<code>const { nome } = aluno</code>).</p>
+    </div>
+
+    <div class="conceito">
+        <h3>3. Spread Operator (Espalhar e Adicionar)</h3>
+        <p>O operador <code>...</code> (três pontinhos) pega tudo o que estava dentro da lista antiga, "espalha" na mesa e junta com o item novo para criar uma lista nova.</p>
+    </div>
+
+    <h2>🔴 Resultado do Código (JavaScript)</h2>
+    <div id="resultado" class="codigo-resultado">
+        </div>
+
+    <script>
+        // Função auxiliar apenas para escrever na tela (para você ver sem abrir o F12)
+        function escreverNaTela(texto) {
+            document.getElementById("resultado").innerHTML += texto + "<br>";
+        }
+
+        escreverNaTela("<strong>--- INÍCIO DO PROCESSAMENTO ---</strong>");
+
+        // --- 1. CRIANDO O OBJETO (A MOCHILA) ---
+        const aluno = {
+            nome: "Lucas Mendes",      // Propriedade
+            notas: [7.0, 8.0, 6.0],    // Propriedade (Array)
+
+            // MÉTODOS (A Calculadora da mochila)
+            calcularMedia: function() {
+                let soma = 0;
+                // 'this.notas' = pegue as notas DESTE objeto
+                for(let i = 0; i < this.notas.length; i++){
+                    soma += this.notas[i];
+                }
+                return soma / this.notas.length;
+            }
+        };
+
+        escreverNaTela(`> Aluno criado: ${aluno.nome}`);
+        escreverNaTela(`> Notas iniciais: ${aluno.notas}`);
+        escreverNaTela(`> Média inicial: ${aluno.calcularMedia().toFixed(2)}`);
+        escreverNaTela("----------------------------------");
+
+        // --- 2. DESESTRUTURAÇÃO (Tirando da mochila) ---
+        // Cria uma variável 'nome' isolada, vinda de dentro de 'aluno'
+        const { nome } = aluno; 
+        
+        escreverNaTela(`> Nome extraído (Desestruturação): <strong>${nome}</strong>`);
+        escreverNaTela("----------------------------------");
+
+        // --- 3. SPREAD OPERATOR (Adicionando nota nova) ---
+        // Tradução: "Crie um novo array, espalhe (...) as notas velhas e ponha 10 no fim"
+        let novaNota = 10;
+        aluno.notas = [...aluno.notas, novaNota];
+
+        escreverNaTela(`> Adicionando nota 10 com Spread...`);
+        escreverNaTela(`> Novas notas: [${aluno.notas}]`);
+        escreverNaTela(`> <strong>Nova Média Recalculada: ${aluno.calcularMedia().toFixed(2)}</strong>`);
+
+    </script>
+
+</body>
+</html>

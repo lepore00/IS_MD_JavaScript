@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 13 - Ex 02 (Validação)</title>
+</head>
+
+<body>
+    <h1>Aula 13 - Ex 02 (Validação)</h1>
+
+    <script>
+        function dividir(a, b) {
+            if (b === 0) {
+                throw "Não é possível dividir por zero.";
+            }
+
+            return a / b;
+        }
+
+        try {
+            let resultado = dividir(10, 0);
+            console.log("Resultado:", resultado);
+        } catch (erro) {
+            console.log("Erro:", erro);
+        }
+    </script>
+</body>
+
+</html>

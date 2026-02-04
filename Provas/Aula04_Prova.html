@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A04 - Lista de Compras</title>
+</head>
+<body>
+    <h1>Gerenciador de Lista de Compras</h1>
+    <p>O sistema está rodando através de janelas interativas (Prompts).</p>
+    <p>Abra o <strong>Console (F12)</strong> para visualizar o histórico de ações.</p>
+
+    <script>
+        // Inicializa o array vazio
+        let listaDeCompras = ["Leite", "Pão"]; // Comecei com 2 itens para facilitar seu teste
+
+        // Variável de controle do menu
+        let continuar = true;
+
+        while (continuar) {
+            // Exibe o menu e pede uma opção
+            let opcao = prompt(
+                "=== LISTA DE COMPRAS ===\n" +
+                "1. Adicionar Item (push)\n" +
+                "2. Remover Item (splice)\n" +
+                "3. Atualizar Item\n" +
+                "4. Exibir Lista (for...of)\n" +
+                "5. Sair\n\n" +
+                "Digite o número da opção:"
+            );
+
+            switch (opcao) {
+                
+                // --- REQUISITO 1: Adicionar Itens (.push) ---
+                case "1":
+                    let novoItem = prompt("Digite o nome do produto para adicionar:");
+                    if (novoItem) {
+                        listaDeCompras.push(novoItem);
+                        console.log(`>> Item adicionado: ${novoItem}`);
+                        alert("Item adicionado com sucesso!");
+                    }
+                    break;
+
+                // --- REQUISITO 2: Remover Itens (.splice) ---
+                case "2":
+                    // Primeiro mostramos a lista para o usuário saber o índice
+                    let listaParaRemover = "Índices para remoção:\n";
+                    for (let i = 0; i < listaDeCompras.length; i++) {
+                        listaParaRemover += `${i}: ${listaDeCompras[i]}\n`;
+                    }
+                    
+                    let indiceRemover = parseInt(prompt(listaParaRemover + "\nDigite o ÍNDICE do item para remover:"));
+
+                    // Verificação simples se o índice existe
+                    if (indiceRemover >= 0 && indiceRemover < listaDeCompras.length) {
+                        // O método splice(índice, quantidade) remove itens
+                        let itemRemovido = listaDeCompras.splice(indiceRemover, 1);
+                        console.log(`>> Item removido: ${itemRemovido}`);
+                        alert(`O item "${itemRemovido}" foi removido.`);
+                    } else {
+                        alert("Índice inválido!");
+                    }
+                    break;
+
+                // --- REQUISITO 4: Atualizar Itens ---
+                case "3":
+                    // Mostra a lista para saber o índice
+                    let listaParaAtualizar = "Índices para atualização:\n";
+                    for (let i = 0; i < listaDeCompras.length; i++) {
+                        listaParaAtualizar += `${i}: ${listaDeCompras[i]}\n`;
+                    }
+
+                    let indiceAtualizar = parseInt(prompt(listaParaAtualizar + "\nDigite o ÍNDICE do item que deseja alterar:"));
+
+                    if (indiceAtualizar >= 0 && indiceAtualizar < listaDeCompras.length) {
+                        let novoValor = prompt(`O valor atual é "${listaDeCompras[indiceAtualizar]}". Digite o novo nome:`);
+                        if (novoValor) {
+                            // Atualização direta pelo índice
+                            listaDeCompras[indiceAtualizar] = novoValor;
+                            console.log(`>> Item no índice ${indiceAtualizar} atualizado para: ${novoValor}`);
+                            alert("Item atualizado!");
+                        }
+                    } else {
+                        alert("Índice inválido!");
+                    }
+                    break;
+
+                // --- REQUISITO 3: Exibir Lista (for...of) ---
+                case "4":
+                    console.log("--- SUA LISTA DE COMPRAS ---");
+                    
+                    // Como o for...of não nos dá o índice nativamente, criamos um contador manual
+                    let contador = 0;
+                    let textoLista = "Sua Lista:\n";
+
+                    for (let item of listaDeCompras) {
+                        // Exibe no Console
+                        console.log(`Índice ${contador}: ${item}`);
+                        
+                        // Monta texto para o alert
+                        textoLista += `[${contador}] ${item}\n`;
+                        
+                        contador++; // Incrementa o índice manual
+                    }
+                    
+                    console.log("----------------------------");
+                    alert(textoLista);
+                    break;
+
+                case "5":
+                case null: // Caso o usuário clique em Cancelar
+                    continuar = false;
+                    console.log("Sistema encerrado.");
+                    break;
+
+                default:
+                    alert("Opção inválida. Tente novamente.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício de Array e Lógica</title>
+</head>
+
+<body>
+    <h1>Exercício de Manipulação de Arrays</h1>
+    <p>
+        Abra o <strong>Console</strong>
+        (F12 ou Botão Direito > Inspecionar > Console)
+        para ver o resultado do processamento.</p>
+
+    <script>
+        //Dado um array de numeros inteiros positivos, um novo array vazio é criado
+        //Um laço for percorre array de inicio e fim
+        //Para cada elemento
+        //Se o numero for multiplo de 4 o valor dividido por 2 é adicionado ao novo array
+        //Caso contrário o valor somado com indice da posição atual é adicionado ao novo array
+        //Ao final do loop o conteudo do novo array é exibido no console
+
+        let arrayOriginal = [1,2,3,4,5,6,7];
+        console.log("Array Original:", arrayOriginal);
+        let novoArray = [];
+
+        for (let i = 0; i < arrayOriginal.length; i++) {
+            let valorAtual = arrayOriginal[i];
+            if (valorAtual % 4 === 0) {
+                novoArray.push(valorAtual / 2);
+            } else {
+                novoArray.push(valorAtual + i);
+            }
+        }
+        console.log("Novo Array Gerado:", novoArray);
+    </script>
+</body>
+
+</html>

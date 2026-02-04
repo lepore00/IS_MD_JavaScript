@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício Switch Case e Array</title>
+</head>
+
+<body>
+    <h1>Exercício: For, Array e Switch Case</h1>
+    <p>Abra o <strong>Console</strong> do navegador (F12) para ver o cálculo passo a passo.</p>
+
+    <script>
+        let numeros = [1, 2, 3, 4, 5, 6, 7];
+        let acumulador = 0;
+
+        console.log("Array inicial:", numeros);
+        console.log("------------------------------------------------");
+
+        for (let i = 0; i < numeros.length; i++) {
+            let numeroAtual = numeros[i];
+            let resto = numeroAtual % 3;
+
+            switch (resto) {
+                case 0:
+                    acumulador += numeroAtual;
+                    console.log(`Número ${numeroAtual}: Resto 0 -> Somou (Acumulador atual: ${acumulador})`);
+                    break;
+                case 1:
+                    acumulador -= numeroAtual;
+                    console.log(`Número ${numeroAtual}: Resto 1 -> Subtraiu (Acumulador atual: ${acumulador})`);
+                    break;
+                case 2:
+                    // Se o resto é 2: IGNORA (não faz nada)
+                    console.log(`Número ${numeroAtual}: Resto 2 -> Ignorado (Acumulador manteve: ${acumulador})`);
+                    break;
+                default:
+                    console.log("Algo inesperado aconteceu.");
+                    break;
+            }
+        }
+
+        console.log("------------------------------------------------");
+        console.log("VALOR FINAL DO ACUMULADOR:", acumulador);
+
+    </script>
+</body>
+
+</html>

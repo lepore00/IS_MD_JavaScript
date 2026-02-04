@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 11 - Ex 03 (Cartão)</title>
+</head>
+
+<body>
+    <h1>Aula 11 - Ex 03 (Criar Cartão)</h1>
+
+    <input type="text" id="titulo" placeholder="Título da tarefa"><br><br>
+    <textarea id="descricao" placeholder="Descrição da tarefa"></textarea><br><br>
+    <button id="criar">Criar Tarefa</button>
+
+    <div id="tarefas"></div>
+
+    <script>
+        let btn = document.getElementById("criar");
+        let area = document.getElementById("tarefas");
+
+        btn.addEventListener("click", function () {
+            let titulo = document.getElementById("titulo").value;
+            let descricao = document.getElementById("descricao").value;
+
+            let card = document.createElement("div");
+            let h3 = document.createElement("h3");
+            let p = document.createElement("p");
+
+            h3.innerText = titulo;
+            p.innerText = descricao;
+
+            card.appendChild(h3);
+            card.appendChild(p);
+
+            area.appendChild(card);
+        });
+    </script>
+</body>
+
+</html>

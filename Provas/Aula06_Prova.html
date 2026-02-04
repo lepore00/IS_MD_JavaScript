@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A06 - Funções Avançadas</title>
+</head>
+<body>
+    <h1>Gerenciador de Tarefas Avançado</h1>
+    <p>Este sistema utiliza:</p>
+    <ul>
+        <li>Funções Anônimas</li>
+        <li>Arrow Functions</li>
+        <li>Callbacks</li>
+    </ul>
+    <p>Abra o <strong>Console (F12)</strong> para acompanhar o processamento.</p>
+    <button onclick="iniciarSistema()">Clique aqui para Iniciar o Sistema</button>
+
+    <script>
+        // Array global de tarefas
+        let tarefas = ["Estudar JavaScript", "Ler um livro"];
+
+        // --- 1. FUNÇÃO ANÔNIMA (Requisito) ---
+        // Atribuída a uma variável (const). Não tem nome depois da palavra 'function'.
+        const adicionarTarefa = function(novaTarefa) {
+            if (novaTarefa && novaTarefa.trim() !== "") {
+                tarefas.push(novaTarefa);
+                console.log(`[ADD] Tarefa "${novaTarefa}" adicionada.`);
+            } else {
+                console.log("[ERRO] Tarefa inválida.");
+            }
+        };
+
+        // --- 2. ARROW FUNCTION (Requisito) ---
+        // Sintaxe mais curta '() => {}'. Ideal para listar.
+        const listarTarefas = () => {
+            console.clear(); // Limpa o console para facilitar a leitura
+            console.log("=== LISTA ATUAL ===");
+            
+            // forEach também usa callback (aqui usamos arrow function dentro dele)
+            tarefas.forEach((tarefa, indice) => {
+                console.log(`${indice}: ${tarefa}`);
+            });
+            
+            console.log("===================");
+        };
+
+        // --- 3. FUNÇÕES DE OPERAÇÃO (Para serem usadas como Callbacks) ---
+        
+        // Função para remover
+        const opRemover = (indice) => {
+            let removido = tarefas.splice(indice, 1);
+            console.log(`[REMOVE] Tarefa "${removido}" removida.`);
+        };
+
+        // Função para atualizar
+        const opAtualizar = (indice, novoTexto) => {
+            let antigo = tarefas[indice];
+            tarefas[indice] = novoTexto;
+            console.log(`[UPDATE] Alterado de "${antigo}" para "${novoTexto}".`);
+        };
+
+        // Função para concluir
+        const opConcluir = (indice) => {
+            if (!tarefas[indice].includes("✅")) {
+                tarefas[indice] = "✅ " + tarefas[indice];
+                console.log(`[CHECK] Tarefa ${indice} concluída.`);
+            } else {
+                console.log("Tarefa já estava concluída.");
+            }
+        };
+
+        // --- 4. FUNÇÃO QUE RECEBE CALLBACK (Requisito Principal) ---
+        // Esta função recebe "outraFuncao" como parâmetro e a executa.
+        function processarCallback(funcaoOperacao, indice, valorExtra) {
+            // Validamos se o índice existe antes de chamar o callback
+            if (indice >= 0 && indice < tarefas.length) {
+                // Aqui acontece a mágica: executamos a função que foi passada
+                funcaoOperacao(indice, valorExtra);
+            } else {
+                alert("Índice inválido!");
+                console.log("[ERRO] Tentativa de acesso a índice inexistente.");
+            }
+        }
+
+        // --- LÓGICA DO MENU ---
+        function iniciarSistema() {
+            let executando = true;
+
+            while (executando) {
+                let opcao = prompt(
+                    "1. Listar Tarefas (Arrow Function)\n" +
+                    "2. Adicionar Tarefa (Função Anônima)\n" +
+                    "3. Remover Tarefa (Callback)\n" +
+                    "4. Atualizar Tarefa (Callback)\n" +
+                    "5. Concluir Tarefa (Callback)\n" +
+                    "6. Sair"
+                );
+
+                switch (opcao) {
+                    case "1":
+                        listarTarefas(); // Chama a Arrow Function
+                        break;
+                    
+                    case "2":
+                        let textoAdd = prompt("Nome da nova tarefa:");
+                        adicionarTarefa(textoAdd); // Chama a Função Anônima
+                        break;
+
+                    case "3": // Remover via Callback
+                        listarTarefas();
+                        let indRemove = parseInt(prompt("Índice para remover:"));
+                        // Chamamos a função processadora passando a função 'opRemover' como parâmetro
+                        processarCallback(opRemover, indRemove); 
+                        break;
+
+                    case "4": // Atualizar via Callback
+                        listarTarefas();
+                        let indUpdate = parseInt(prompt("Índice para atualizar:"));
+                        let textoUpdate = prompt("Novo texto da tarefa:");
+                        // Passamos 'opAtualizar' e os dois parâmetros necessários
+                        processarCallback(opAtualizar, indUpdate, textoUpdate);
+                        break;
+
+                    case "5": // Concluir via Callback
+                        listarTarefas();
+                        let indCheck = parseInt(prompt("Índice para concluir:"));
+                        // Passamos 'opConcluir'
+                        processarCallback(opConcluir, indCheck);
+                        break;
+
+                    case "6":
+                    case null:
+                        executando = false;
+                        console.log("Sistema encerrado.");
+                        break;
+                    
+                    default:
+                        alert("Opção inválida.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

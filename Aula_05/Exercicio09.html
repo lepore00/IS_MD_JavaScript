@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 7</title>
+</head>
+<body>
+    <h1>Exercício 7</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [1, 5, 2, 3, 1];
+        let acumulador = 0;
+
+        for (let i = 0; i < numeros.length; i++) {
+            let n = numeros[i];
+
+            switch (n) {
+                case 1:
+                case 2:
+                    // Se for 1 ou 2, some 5
+                    acumulador += 5;
+                    break;
+                case 3:
+                    // Se for 3, subtraia 2
+                    acumulador -= 2;
+                    break;
+                default:
+                    // Caso padrão (outros números), não faz nada
+                    break;
+            }
+        }
+
+        console.log("Array:", numeros);
+        console.log("Resultado Final:", acumulador);
+    </script>
+</body>
+</html>

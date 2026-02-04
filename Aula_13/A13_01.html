@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 13 - Ex 01 (Try Catch)</title>
+</head>
+
+<body>
+    <h1>Aula 13 - Ex 01 (Try Catch)</h1>
+
+    <script>
+        try {
+            // Código que pode gerar erro
+            let dados = JSON.parse("texto inválido");
+
+            console.log(dados);
+        } catch (erro) {
+            // Captura o erro e evita que o programa quebre
+            console.log("Ocorreu um erro ao converter JSON.");
+            console.log("Mensagem do erro:", erro.message);
+        }
+    </script>
+</body>
+
+</html>

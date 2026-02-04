@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A03 - Loops Iterativos</title>
+</head>
+<body>
+    <h1>Exercício de Loops (While, For, For...of)</h1>
+    <p>Siga as instruções nas janelas de alerta.</p>
+    <p>Depois, abra o <strong>Console</strong> (F12) para ver os resultados processados.</p>
+
+    <script>
+        // Array vazio para armazenar os dados coletados
+        let listaDeNomes = [];
+
+        console.log("--- INÍCIO DO PROGRAMA ---");
+
+        // --- ETAPA 1: Coleta de Dados com while (true) ---
+        // while (true) cria um loop infinito proposital.
+        // Precisamos garantir que haja um comando 'break' para sair dele.
+        
+        while (true) {
+            let entrada = prompt("Digite um nome para a lista (ou digite 'sair' para encerrar):");
+
+            // Validação de segurança: Se o usuário cancelar ou não digitar nada
+            if (entrada === null) break; 
+            
+            // Tratamento da string: remove espaços e converte para minúsculo para comparar
+            if (entrada.trim().toLowerCase() === "sair") {
+                console.log(">> Comando 'sair' detectado. Encerrando coleta.");
+                break; // OBRIGATÓRIO: Quebra o loop while
+            }
+
+            // Se não for "sair" e não estiver vazio, adiciona ao array
+            if (entrada.trim() !== "") {
+                listaDeNomes.push(entrada);
+            }
+        }
+
+        console.log("-----------------------------------");
+        console.log("PROCESSAMENTO 1: Loop FOR (Com Índices)");
+
+        // --- ETAPA 2: Processamento com for (Clássico) ---
+        // Usamos este quando precisamos controlar a posição (i)
+        
+        for (let i = 0; i < listaDeNomes.length; i++) {
+            // Lembre-se: Arrays começam no índice 0, então somamos 1 para ficar bonito na tela
+            let posicao = i + 1;
+            let nome = listaDeNomes[i];
+            
+            console.log(posicao + ": " + nome);
+        }
+
+        console.log("-----------------------------------");
+        console.log("PROCESSAMENTO 2: Loop FOR...OF (Simplificado)");
+
+        // --- ETAPA 3: Exibição com for...of ---
+        // Usamos este para percorrer os valores diretamente, sem se preocupar com índices
+        // Lê-se: "Para cada 'nome' DE 'listaDeNomes'..."
+        
+        for (let nome of listaDeNomes) {
+            console.log(`Bem-vindo(a), ${nome}!`);
+        }
+        
+        console.log("--- FIM DO PROGRAMA ---");
+
+    </script>
+</body>
+</html>

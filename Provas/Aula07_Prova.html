@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSIA-A07 - Métodos de Array</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Gerenciador de Nomes (Métodos Auxiliares)</h1>
+    <p>Este sistema utiliza <strong>push, filter, find, map e every</strong>.</p>
+    <p>Clique no botão abaixo para iniciar o menu interativo.</p>
+    <p><em>Verifique os resultados na aba <strong>Console</strong> (F12) do seu navegador.</em></p>
+
+    <button onclick="iniciarSistema()">Iniciar Sistema</button>
+
+    <script>
+        // Array inicial para não começar vazio (facilita os testes)
+        let listaDeNomes = ["Ana", "Carlos", "Beatriz", "Daniel", "Eduardo", "Bob"];
+
+        function iniciarSistema() {
+            let executando = true;
+
+            console.log("--- LISTA INICIAL ---");
+            console.log(listaDeNomes);
+
+            while (executando) {
+                let menu = 
+                    "=== MENU DE ARRAYS ===\n" +
+                    "1. Adicionar Nome (push)\n" +
+                    "2. Filtrar por Letra Inicial (filter)\n" +
+                    "3. Buscar Nome Específico (find)\n" +
+                    "4. Transformar em Maiúsculas (map)\n" +
+                    "5. Verificar Tamanho > 3 (every)\n" +
+                    "6. Exibir Lista Atual\n" +
+                    "7. Sair\n\n" +
+                    "Escolha uma opção:";
+
+                let opcao = prompt(menu);
+
+                switch (opcao) {
+                    
+                    // --- 1. ADICIONAR (push) ---
+                    case "1":
+                        let novoNome = prompt("Digite o nome para adicionar:");
+                        if (novoNome && novoNome.trim() !== "") {
+                            // push: Adiciona ao final da lista
+                            listaDeNomes.push(novoNome.trim());
+                            console.log(`>> Nome "${novoNome}" adicionado.`);
+                            console.log("Lista Atualizada:", listaDeNomes);
+                        } else {
+                            alert("Nome inválido!");
+                        }
+                        break;
+
+                    // --- 2. FILTRAR (filter) ---
+                    case "2":
+                        let letra = prompt("Digite a letra inicial para filtrar:");
+                        if (letra) {
+                            // filter: Cria um NOVO array apenas com quem passar no teste (true)
+                            // Usamos toUpperCase() para ignorar se o usuário digitou minúscula
+                            let nomesFiltrados = listaDeNomes.filter(nome => {
+                                return nome.toUpperCase().startsWith(letra.toUpperCase());
+                            });
+
+                            console.log(`>> Nomes que começam com "${letra}":`);
+                            console.log(nomesFiltrados);
+                            alert(`Encontrados ${nomesFiltrados.length} nomes. Veja no Console.`);
+                        }
+                        break;
+
+                    // --- 3. BUSCAR (find) ---
+                    case "3":
+                        let termoBusca = prompt("Digite o nome EXATO que procura:");
+                        // find: Retorna o PRIMEIRO elemento que satisfaz a condição. Se não achar, retorna undefined.
+                        let encontrado = listaDeNomes.find(nome => nome === termoBusca);
+
+                        if (encontrado) {
+                            console.log(`>> Sucesso: O nome "${encontrado}" está na lista.`);
+                            alert(`Nome "${encontrado}" encontrado!`);
+                        } else {
+                            console.log(`>> Falha: O nome "${termoBusca}" NÃO foi encontrado.`);
+                            alert("Nome não encontrado.");
+                        }
+                        break;
+
+                    // --- 4. TRANSFORMAR (map) ---
+                    case "4":
+                        // map: Cria um NOVO array do mesmo tamanho, modificando item por item
+                        let nomesMaiusculos = listaDeNomes.map(nome => nome.toUpperCase());
+                        
+                        console.log(">> Lista transformada (MAP):");
+                        console.log(nomesMaiusculos);
+                        alert("Transformação concluída! Veja no Console.");
+                        break;
+
+                    // --- 5. VERIFICAR (every) ---
+                    case "5":
+                        // every: Retorna true APENAS se TODOS os itens passarem no teste
+                        let todosMaioresQueTres = listaDeNomes.every(nome => nome.length > 3);
+                        
+                        console.log(">> Verificação (every): Todos os nomes têm mais de 3 letras?");
+                        if (todosMaioresQueTres) {
+                            console.log("Resultado: TRUE (Sim, todos são longos).");
+                            alert("Sim! Todos os nomes têm mais de 3 letras.");
+                        } else {
+                            console.log("Resultado: FALSE (Não, existe pelo menos um nome curto).");
+                            alert("Não! Há nomes com 3 letras ou menos na lista.");
+                        }
+                        break;
+
+                    // --- 6. EXIBIR ---
+                    case "6":
+                        console.log("--- LISTA ATUAL ---");
+                        console.log(listaDeNomes);
+                        break;
+
+                    // --- 7. SAIR ---
+                    case "7":
+                    case null:
+                        executando = false;
+                        console.log("Sistema encerrado.");
+                        break;
+
+                    default:
+                        alert("Opção inválida.");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

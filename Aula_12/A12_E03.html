@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 12 - Ex 03 (Lista de Tarefas)</title>
+</head>
+
+<body>
+    <h1>Aula 12 - Ex 03 (Lista de Tarefas)</h1>
+
+    <input type="text" id="tarefa" placeholder="Digite a tarefa">
+    <button id="adicionar">Adicionar</button>
+
+    <ul id="lista"></ul>
+
+    <script>
+        let input = document.getElementById("tarefa");
+        let botao = document.getElementById("adicionar");
+        let lista = document.getElementById("lista");
+
+        // Recupera tarefas salvas ou cria array vazio
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        // Função para renderizar lista
+        function renderizar() {
+            lista.innerHTML = "";
+
+            tarefas.forEach(function (tarefa) {
+                let li = document.createElement("li");
+                li.innerText = tarefa;
+                lista.appendChild(li);
+            });
+        }
+
+        // Renderiza ao carregar a página
+        renderizar();
+
+        botao.addEventListener("click", function () {
+            tarefas.push(input.value);
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+            input.value = "";
+            renderizar();
+        });
+    </script>
+</body>
+
+</html>

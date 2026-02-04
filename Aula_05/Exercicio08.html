@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 6</title>
+</head>
+<body>
+    <h1>Exercício 6</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [-5, 10, -2, 3, 4];
+        let acumulador = 0;
+
+        for (let i = 0; i < numeros.length; i++) {
+            let n = numeros[i];
+
+            // Se negativo, ignora
+            if (n < 0) {
+                continue;
+            }
+
+            // Ternário: Se par soma (+n), se ímpar subtrai (-n)
+            acumulador += (n % 2 === 0) ? n : -n;
+        }
+
+        console.log("Array:", numeros);
+        console.log("Acumulador Final:", acumulador);
+        // Lógica: -5(pula), 10(par +10), -2(pula), 3(impar -3), 4(par +4) -> 10 - 3 + 4 = 11
+    </script>
+</body>
+</html>

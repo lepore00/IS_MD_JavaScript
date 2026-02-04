@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 01 - Introdução | Wiki JS</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <h3>JS Tutorial</h3>
+        <a href="index.html">🏠 Home</a>
+        <a href="aula01.html" class="active">Aula 01 - Introdução</a>
+        <a href="aula02.html">Aula 02 - Condicionais</a>
+        <a href="aula03.html">Aula 03 - Laços</a>
+        <a href="aula04.html">Aula 04 - Arrays</a>
+        <a href="aula05.html">Aula 05 - Revisão I</a>
+        <a href="aula06.html">Aula 06 - Funções</a>
+        <a href="aula07.html">Aula 07 - Métodos Array</a>
+        <a href="aula08.html">Aula 08 - Objetos</a>
+        <a href="aula09.html">Aula 09 - Revisão II</a>
+        <a href="aula10.html">Aula 10 - DOM I</a>
+        <a href="aula11.html">Aula 11 - DOM II (Eventos)</a>
+        <a href="aula12.html">Aula 12 - Local Storage</a>
+        <a href="aula13.html">Aula 13 - Erros e Módulos</a>
+        <a href="aula14.html">Aula 14 - API I</a>
+        <a href="aula15.html">Aula 15 - API II</a>
+        <a href="aula16.html">Aula 16 - Projeto Final</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Aula 01: Introdução ao JavaScript</h1>
+        <p>O JavaScript (JS) é a linguagem de programação que dá vida às páginas web, permitindo interatividade e dinamismo. Nesta aula, aprendemos os conceitos fundamentais para iniciar a programação.</p>
+
+        <h2>1. Saída de Dados</h2>
+        <p>Para exibir informações, utilizamos principalmente duas ferramentas:</p>
+        <ul>
+            <li><code>console.log()</code>: Mostra mensagens no console do navegador (F12).</li>
+            <li><code>alert()</code>: Exibe uma janela de alerta pop-up para o utilizador.</li>
+        </ul>
+
+        <h2>2. Variáveis e Tipos de Dados</h2>
+        <p>Variáveis são espaços na memória para guardar informações. Existem tipos primitivos de dados:</p>
+        <ul>
+            <li><strong>String:</strong> Texto (ex: "Olá mundo").</li>
+            <li><strong>Number:</strong> Números inteiros ou decimais (ex: 10, 5.5).</li>
+            <li><strong>Boolean:</strong> Verdadeiro ou Falso (true/false).</li>
+        </ul>
+
+        <h2>3. Entrada de Dados</h2>
+        <p>Para interagir com o utilizador e receber informações, utilizamos o <code>prompt()</code>.</p>
+
+        <h2>Exemplo Prático</h2>
+        <p>Copia o código completo abaixo, cola num novo ficheiro (ex: <code>teste_aula01.html</code>) no VSCode e abre no navegador:</p>
+
+        <div class="code-box">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-br"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Teste Aula 01&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Teste de JavaScript - Aula 01&lt;/h1&gt;
+    &lt;p&gt;Abra o Console do navegador (F12) para ver os logs.&lt;/p&gt;
+
+    &lt;script&gt;
+        // 1. Saída de dados
+        console.log("Olá, Dev! Bem-vindo ao curso.");
+        alert("A página carregou com sucesso! Verifique o console.");
+
+        // 2. Declaração de Variáveis
+        let nome = "Maria";      // String
+        let idade = 25;          // Number
+        let estudaJS = true;     // Boolean
+
+        // 3. Entrada de dados e Interação
+        let entrada = prompt("Qual é a tua linguagem favorita?");
+        
+        // Exibindo resultado no alerta e no console
+        alert("A " + nome + " gosta de " + entrada);
+        console.log("Usuário digitou: " + entrada);
+
+        // 4. Operações Matemáticas
+        let soma = 10 + 20;
+        console.log("A soma de 10 + 20 é: " + soma);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </div>
+
+        <div class="nav-buttons">
+            <a href="index.html" class="btn">❮ Home</a>
+            <a href="aula02.html" class="btn">Próximo: Condicionais ❯</a>
+        </div>
+    </div>
+
+</body>
+</html>

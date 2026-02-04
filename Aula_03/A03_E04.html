@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 03 - Ex 04 (For)</title>
+</head>
+
+<body>
+    <h1>Aula 03 - Ex 04 (For)</h1>
+
+    <script>
+        // Pede um número inteiro positivo
+        let numero = Number(prompt("Digite um número inteiro positivo:"));
+
+        let soma = 0;
+
+        console.log("Soma de 1 até", numero, "é:", soma);
+
+        // Verifica se está no intervalo válido
+        if (numero >= 1) {
+
+            // Loop de 1 até o número informado
+            for (let i = 1; i <= numero; i++) {
+                soma += i; // soma = soma + i
+            }
+
+        } else {
+            console.log("Seu número não é maior que 1");
+        }
+    </script>
+</body>
+
+</html>

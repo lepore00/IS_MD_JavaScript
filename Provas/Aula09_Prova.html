@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A09 - Sistema de Notas</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f0f0f0; }
+        .box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Sistema Escolar (Objeto Aluno)</h1>
+        <p>Este sistema roda inteiramente no JavaScript.</p>
+        <p>👉 <strong>Abra o Console do navegador (F12)</strong> para ver o boletim do aluno.</p>
+    </div>
+
+    <script>
+        // --- 1. CRIAÇÃO DO OBJETO ALUNO ---
+        const aluno = {
+            nome: "Mariana Souza",
+            idade: 17,
+            notas: [6.5, 7.0, 6.0], // Notas iniciais
+
+            // Método para calcular média
+            calcularMedia: function() {
+                let soma = 0;
+                // Percorre as notas deste objeto
+                for (let i = 0; i < this.notas.length; i++) {
+                    soma += this.notas[i];
+                }
+                return soma / this.notas.length;
+            }
+        };
+
+        // --- 2. DESESTRUTURAÇÃO ---
+        // Extraindo nome e idade para variáveis soltas
+        const { nome, idade } = aluno;
+
+        console.log("--- DADOS DO ALUNO ---");
+        console.log(`Nome: ${nome}`);
+        console.log(`Idade: ${idade} anos`);
+
+
+        // --- 3. SPREAD OPERATOR (Adicionar Nova Nota) ---
+        // Adicionando uma nota 9.0 para ajudar na média
+        let novaNota = 9.0;
+        
+        // "Espalha" as notas antigas e coloca a nova no final
+        aluno.notas = [...aluno.notas, novaNota];
+        
+        console.log(">> Nova nota adicionada: " + novaNota);
+
+
+        // --- 4. EXIBINDO NOTAS COM LOOP ---
+        console.log("--- TODAS AS NOTAS ---");
+        // Usando for...of para ficar mais elegante
+        for (let nota of aluno.notas) {
+            console.log(`Nota: ${nota}`);
+        }
+
+
+        // --- 5. FUNÇÃO PARA VERIFICAR SITUAÇÃO ---
+        function verificarSituacao(media) {
+            if (media >= 7) {
+                return "APROVADO(A) ✅";
+            } else {
+                return "REPROVADO(A) ❌";
+            }
+        }
+
+
+        // --- 6. PROCESSAMENTO FINAL ---
+        // Calculamos a média atualizada (com a nota nova)
+        let mediaFinal = aluno.calcularMedia();
+        
+        // Verificamos a situação baseada nessa média
+        let situacaoFinal = verificarSituacao(mediaFinal);
+
+        console.log("----------------------");
+        console.log(`MÉDIA FINAL: ${mediaFinal.toFixed(2)}`); // toFixed(2) deixa com 2 casas decimais
+        console.log(`SITUAÇÃO: ${situacaoFinal}`);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 07 - Ex 04 (reduce)</title>
+</head>
+
+<body>
+    <h1>Aula 07 - Ex 04 (reduce)</h1>
+
+    <script>
+        // Array de números
+        let valores = [10, 20, 30, 40];
+
+        // Soma todos os valores do array
+        let soma = valores.reduce(function (acumulador, valorAtual) {
+            return acumulador + valorAtual;
+        }, 0); // 0 é o valor inicial do acumulador
+
+        console.log("Valores:", valores);
+        console.log("Soma:", soma);
+    </script>
+</body>
+
+</html>

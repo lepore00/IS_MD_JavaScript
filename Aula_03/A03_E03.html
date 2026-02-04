@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 03 - Ex 03 (While True)</title>
+</head>
+
+<body>
+    <h1>Aula 03 - Ex 03 (While True)</h1>
+
+    <script>
+        // Número fixo a ser adivinhado
+        const numeroSecreto = 7;
+
+        while (true) {
+            // Pede um palpite ao usuário
+            let palpite = Number(prompt("Adivinhe o número entre 1 e 10:"));
+
+            // Verifica se está no intervalo válido
+            if (palpite >= 1 && palpite <= 10) {
+
+                if (palpite === numeroSecreto) {
+                    console.log("Parabéns! Você acertou Miseravi.");
+                    break; // Sai do loop
+                } else {
+                    console.log("Errado! Tente novamente.");
+                }
+
+            } else {
+                console.log("Seu número não está entre 1 e 10");
+            }
+        }
+    </script>
+</body>
+
+</html>

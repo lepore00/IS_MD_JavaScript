@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Aula 02 - Ex 05 (Switch - Calculadora)</title>
+</head>
+
+<body>
+    <h1>Aula 02 - Ex 05 (Switch - Calculadora)</h1>
+
+    <script>
+        // 1) Pedimos dois números
+        let numero1 = Number(prompt("Digite o primeiro número (numero1):"));
+        let numero2 = Number(prompt("Digite o segundo número (numero2):"));
+
+        // 2) Pedimos a operação
+        // Sugestão ao usuário: digitar +, -, * ou /
+        let operacao = prompt("Digite a operação (+, -, * ou /):");
+
+        // 3) Variável para guardar o resultado final
+        let resultado;
+
+        // 4) switch: decide o que fazer com base no valor de 'operacao'
+        switch (operacao) {
+            case "+":
+                resultado = numero1 + numero2;
+                console.log("Resultado da soma:", resultado);
+                break;
+
+            case "-":
+                resultado = numero1 - numero2;
+                console.log("Resultado da subtração:", resultado);
+                break;
+
+            case "*":
+                resultado = numero1 * numero2;
+                console.log("Resultado da multiplicação:", resultado);
+                break;
+
+            case "/":
+                // Pequena proteção: evitar divisão por zero (ainda simples, sem “tratamento avançado”)
+                if (numero2 === 0) {
+                    console.log("Não é possível dividir por zero.");
+                } else {
+                    resultado = numero1 / numero2;
+                    console.log("Resultado da divisão:", resultado);
+                }
+                break;
+
+            default:
+                // Se o usuário digitar algo diferente
+                console.log("Operação inválida. Use +, -, * ou /");
+                break;
+        }
+    </script>
+</body>
+
+</html>

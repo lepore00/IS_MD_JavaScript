@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 14 - Ex 03 (Fetch + Erros)</title>
+</head>
+
+<body>
+    <h1>Aula 14 - Ex 03 (Fetch + Erros)</h1>
+
+    <script>
+        fetch("https://jsonplaceholder.typicode.com/usuarios-inexistentes")
+            .then(function (resposta) {
+                // Verificando se a resposta é válida
+                if (!resposta.ok) {
+                    throw "Erro HTTP: " + resposta.status;
+                }
+                return resposta.json();
+            })
+            .then(function (dados) {
+                console.log(dados);
+            })
+            .catch(function (erro) {
+                console.log("Falha na requisição:", erro);
+            });
+    </script>
+</body>
+
+</html>

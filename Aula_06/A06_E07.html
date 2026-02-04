@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 06 - Ex 07 (Callback)</title>
+</head>
+
+<body>
+    <h1>Aula 06 - Ex 07 (Callback)</h1>
+
+    <script>
+        // Função principal que recebe dois números e um callback
+        function realizarOperacao(a, b, operacao) {
+            // Executa o callback passando os dois números
+            operacao(a, b);
+        }
+
+        // Callback para soma
+        function somar(x, y) {
+            console.log("Soma:", x + y);
+        }
+
+        // Callback para multiplicação
+        function multiplicar(x, y) {
+            console.log("Multiplicação:", x * y);
+        }
+
+        // Chamando a função principal com callbacks diferentes
+        realizarOperacao(4, 5, somar);
+        realizarOperacao(4, 5, multiplicar);
+    </script>
+</body>
+
+</html>

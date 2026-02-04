@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 15 - Ex 01 (Filter e Transform)</title>
+</head>
+
+<body>
+    <h1>Aula 15 - Ex 01 (Filter e Transform)</h1>
+
+    <script>
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (usuarios) {
+                // Filtra usuários cujo nome começa com a letra "C"
+                let filtrados = usuarios.filter(function (usuario) {
+                    return usuario.name.startsWith("C");
+                });
+
+                // Transforma para um novo formato
+                let transformados = filtrados.map(function (usuario) {
+                    return {
+                        nome: usuario.name,
+                        email: usuario.email
+                    };
+                });
+
+                console.log("Resultado final:", transformados);
+            })
+            .catch(function (erro) {
+                console.log("Erro:", erro);
+            });
+    </script>
+</body>
+
+</html>

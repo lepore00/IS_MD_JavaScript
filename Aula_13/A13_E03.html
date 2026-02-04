@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 13 - Ex 03 (Throw)</title>
+</head>
+
+<body>
+    <h1>Aula 13 - Ex 03 (Throw)</h1>
+
+    <script>
+        function cadastrarUsuario(nome) {
+            if (!nome) {
+                throw "Nome é obrigatório para cadastro.";
+            }
+
+            console.log("Usuário cadastrado:", nome);
+        }
+
+        try {
+            cadastrarUsuario("");
+        } catch (erro) {
+            console.log("Erro no cadastro:", erro);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSIA-A10 - Organizador de Tarefas</title>
+    <style>
+        /* Estilos Básicos para ficar bonito */
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        h1 { text-align: center; color: #333; }
+
+        /* Área de Input */
+        .input-area { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button#btnAdicionar { padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button#btnAdicionar:hover { background-color: #218838; }
+
+        /* Lista de Tarefas */
+        ul { list-style: none; padding: 0; }
+        li { background: #fff; border-bottom: 1px solid #eee; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* REQUISITO C: Estilo para tarefa concluída */
+        .concluida {
+            text-decoration: line-through; /* Riscado */
+            color: #888;
+            background-color: #f9f9f9;
+        }
+
+        /* Botão de Remover */
+        .btn-remover {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btn-remover:hover { background-color: #c82333; }
+        
+        /* Span do texto da tarefa (para ser clicável) */
+        .texto-tarefa { flex: 1; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Minhas Tarefas</h1>
+
+        <div class="input-area">
+            <input type="text" id="inputTarefa" placeholder="Digite uma nova tarefa...">
+            <button id="btnAdicionar">Adicionar</button>
+        </div>
+
+        <ul id="listaTarefas">
+            </ul>
+    </div>
+
+    <script>
+        // --- SELETORES DO DOM ---
+        const inputTarefa = document.getElementById('inputTarefa');
+        const btnAdicionar = document.getElementById('btnAdicionar');
+        const listaTarefas = document.getElementById('listaTarefas');
+
+        // --- FUNÇÃO PRINCIPAL: CRIA A TAREFA ---
+        function criarTarefa() {
+            // Pegar o valor digitado
+            let textoDigitado = inputTarefa.value;
+
+            // Validação simples: não adicionar se estiver vazio
+            if (textoDigitado.trim() === "") {
+                alert("Por favor, digite uma tarefa!");
+                return;
+            }
+
+            // --- REQUISITO B: Criando os elementos HTML via JS ---
+            
+            // 1. Cria o elemento <li> (o container da linha)
+            let li = document.createElement('li');
+
+            // 2. Cria um <span> para o texto (assim podemos clicar só no texto para concluir)
+            let spanTexto = document.createElement('span');
+            spanTexto.innerText = textoDigitado;
+            spanTexto.className = "texto-tarefa"; // Classe para ajudar no CSS
+
+            // 3. Cria o botão de remover
+            let btnRemover = document.createElement('button');
+            btnRemover.innerText = "Remover";
+            btnRemover.className = "btn-remover";
+
+
+            // --- REQUISITO C: Marcar como Concluída (Evento no Texto) ---
+            // Adiciona evento de clique no texto da tarefa
+            spanTexto.addEventListener('click', function() {
+                // classList.toggle: Se tem a classe, tira. Se não tem, coloca.
+                spanTexto.classList.toggle('concluida');
+            });
+
+
+            // --- REQUISITO D: Remover Tarefa (Evento no Botão Remover) ---
+            btnRemover.addEventListener('click', function() {
+                // removeChild remove um filho específico do pai
+                // Pai: listaTarefas (<ul>) | Filho: li (<li>)
+                listaTarefas.removeChild(li);
+            });
+
+
+            // --- MONTAGEM FINAL ---
+            // Coloca o texto e o botão dentro do LI
+            li.appendChild(spanTexto);
+            li.appendChild(btnRemover);
+
+            // Coloca o LI dentro da lista UL
+            listaTarefas.appendChild(li);
+
+            // Limpa o input para a próxima tarefa
+            inputTarefa.value = "";
+            inputTarefa.focus(); // Coloca o cursor de volta no input
+        }
+
+        // --- REQUISITO E: Evento no Botão Adicionar ---
+        btnAdicionar.addEventListener('click', criarTarefa);
+
+        // EXTRA: Permitir adicionar apertando ENTER
+        inputTarefa.addEventListener('keypress', function(evento) {
+            if (evento.key === 'Enter') {
+                criarTarefa();
+            }
+        });
+
+    </script>
+</body>
+</html>

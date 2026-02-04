@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSIA-A13 - Tratamento de Erros</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        h2 { text-align: center; color: #333; margin-bottom: 20px; }
+
+        .form-group { margin-bottom: 15px; }
+        
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: 600; }
+        
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; /* Garante que padding não aumente a largura */
+            transition: border-color 0.3s;
+        }
+
+        input:focus { border-color: #007bff; outline: none; }
+
+        /* Estilo para quando der erro no input */
+        input.input-erro { border-color: #dc3545; background-color: #fff8f8; }
+
+        /* Área da mensagem de erro (texto vermelho abaixo do input) */
+        .msg-erro {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 4px;
+            display: block;
+            height: 18px; /* Altura fixa para evitar pulos na tela */
+        }
+
+        button {
+            width: 100%; padding: 12px; background-color: #007bff; color: white; 
+            border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin-top: 10px;
+        }
+        button:hover { background-color: #0056b3; }
+
+        /* Mensagem de Sucesso */
+        #msgSucesso {
+            display: none; /* Começa invisível */
+            background-color: #d4edda; color: #155724; 
+            padding: 15px; border-radius: 4px; margin-top: 20px; text-align: center; border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cadastro de Usuário</h2>
+        
+        <form id="formCadastro">
+            <div class="form-group">
+                <label>Nome Completo:</label>
+                <input type="text" id="nome" placeholder="Seu nome">
+                <span id="erro-nome" class="msg-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Nome de Usuário (User):</label>
+                <input type="text" id="usuario" placeholder="ex: dev_master">
+                <span id="erro-usuario" class="msg-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label>E-mail:</label>
+                <input type="text" id="email" placeholder="email@exemplo.com">
+                <span id="erro-email" class="msg-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Data de Nascimento:</label>
+                <input type="date" id="nascimento">
+                <span id="erro-nascimento" class="msg-erro"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Senha:</label>
+                <input type="password" id="senha" placeholder="Mínimo 6 caracteres">
+                <span id="erro-senha" class="msg-erro"></span>
+            </div>
+
+            <button type="submit" id="btnCadastrar">Cadastrar</button>
+        </form>
+
+        <div id="msgSucesso">Cadastro realizado com sucesso! ✅</div>
+    </div>
+
+    <script>
+        // Função auxiliar para limpar erros visuais antes de validar novamente
+        function limparErros() {
+            // Limpa textos de erro
+            document.querySelectorAll('.msg-erro').forEach(span => span.textContent = "");
+            // Remove bordas vermelhas
+            document.querySelectorAll('input').forEach(input => input.classList.remove('input-erro'));
+            // Esconde sucesso
+            document.getElementById('msgSucesso').style.display = 'none';
+        }
+
+        // Função auxiliar para calcular idade
+        function calcularIdade(dataNasc) {
+            const hoje = new Date();
+            const nascimento = new Date(dataNasc);
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const mes = hoje.getMonth() - nascimento.getMonth();
+            
+            // Ajuste fino se ainda não fez aniversário este ano
+            if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+                idade--;
+            }
+            return idade;
+        }
+
+        // --- LÓGICA PRINCIPAL ---
+        document.getElementById('formCadastro').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede recarregamento
+            limparErros();
+
+            // Coleta valores
+            const nome = document.getElementById('nome').value.trim();
+            const usuario = document.getElementById('usuario').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const nascimento = document.getElementById('nascimento').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                // --- BLOCO DE VALIDAÇÃO (LANÇAMENTO DE ERROS) ---
+
+                // 1. Validação de Nome
+                if (nome === "") {
+                    // Lançamos um OBJETO de erro para saber QUAL campo falhou
+                    throw { campo: 'nome', mensagem: 'O campo Nome é obrigatório.' };
+                }
+
+                // 2. Validação de Usuário
+                if (usuario.length < 3) {
+                    throw { campo: 'usuario', mensagem: 'O usuário deve ter no mínimo 3 caracteres.' };
+                }
+
+                // 3. Validação de Email (Regex simples)
+                if (email === "" || !email.includes('@') || !email.includes('.')) {
+                    throw { campo: 'email', mensagem: 'Por favor, insira um e-mail válido.' };
+                }
+
+                // 4. Validação de Idade (Maioridade)
+                if (nascimento === "") {
+                    throw { campo: 'nascimento', mensagem: 'A data de nascimento é obrigatória.' };
+                }
+                const idade = calcularIdade(nascimento);
+                if (idade < 18) {
+                    throw { campo: 'nascimento', mensagem: `Você tem ${idade} anos. É necessário ser maior de 18.` };
+                }
+
+                // 5. Validação de Senha
+                if (senha.length < 6) {
+                    throw { campo: 'senha', mensagem: 'A senha deve ter pelo menos 6 caracteres.' };
+                }
+
+                // --- CADASTRO BEM-SUCEDIDO ---
+                // Se o código chegou até aqui, nenhum erro foi lançado (throw).
+                document.getElementById('msgSucesso').style.display = 'block';
+                console.log("Dados válidos enviando para o servidor...");
+                // Aqui você poderia usar o form.reset() se quisesse limpar os campos
+
+            } catch (erro) {
+                // --- BLOCO DE TRATAMENTO (CATCH) ---
+                // Este bloco só roda se alguém der um "throw" lá em cima.
+                
+                console.error("Erro de Validação:", erro);
+
+                // Como lançamos um objeto { campo: '...', mensagem: '...' }, podemos usar isso agora:
+                
+                // 1. Seleciona o span de erro correto: id="erro-nome", "erro-senha", etc.
+                const spanErro = document.getElementById(`erro-${erro.campo}`);
+                if (spanErro) {
+                    spanErro.textContent = erro.mensagem;
+                }
+
+                // 2. Pinta a borda do input de vermelho
+                const inputErro = document.getElementById(erro.campo);
+                if (inputErro) {
+                    inputErro.classList.add('input-erro');
+                    inputErro.focus(); // Coloca o cursor no campo errado
+                }
+            }
+        });
+    </script>
+</body>
+</html>

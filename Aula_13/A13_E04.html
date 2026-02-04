@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 13 - Ex 04 (Boas Práticas)</title>
+</head>
+
+<body>
+    <h1>Aula 13 - Ex 04 (Boas Práticas)</h1>
+
+    <script>
+        function calcularMedia(notas) {
+            if (!Array.isArray(notas) || notas.length === 0) {
+                throw "Lista de notas inválida.";
+            }
+
+            let soma = 0;
+
+            for (let i = 0; i < notas.length; i++) {
+                soma += notas[i];
+            }
+
+            return soma / notas.length;
+        }
+
+        try {
+            let media = calcularMedia([7, 8, 9]);
+            console.log("Média:", media);
+        } catch (erro) {
+            console.log("Erro:", erro);
+        }
+    </script>
+</body>
+
+</html>

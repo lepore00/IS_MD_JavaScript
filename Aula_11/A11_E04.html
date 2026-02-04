@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 11 - Ex 04 (Mouse)</title>
+</head>
+
+<body>
+    <h1>Aula 11 - Ex 04 (Mouse Move)</h1>
+
+    <div id="area" style="width:300px;height:200px;border:1px solid black;"></div>
+    <p id="coordenadas"></p>
+
+    <script>
+        let area = document.getElementById("area");
+        let texto = document.getElementById("coordenadas");
+
+        area.addEventListener("mousemove", function (event) {
+            texto.innerText = "X: " + event.offsetX + " | Y: " + event.offsetY;
+        });
+    </script>
+</body>
+
+</html>

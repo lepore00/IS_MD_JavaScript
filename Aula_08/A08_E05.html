@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 08 - Ex 05 (Array de Objetos + Condicional)</title>
+</head>
+
+<body>
+    <h1>Aula 08 - Ex 05 (Array de Objetos + Condicional)</h1>
+
+    <script>
+        let pessoas = [
+            { nome: "João", idade: 17 },
+            { nome: "Maria", idade: 22 },
+            { nome: "Pedro", idade: 16 },
+            { nome: "Ana", idade: 30 }
+        ];
+
+        // Percorrendo e verificando maioridade
+        for (let pessoa of pessoas) {
+            if (pessoa.idade >= 18) {
+                console.log(pessoa.nome + " é maior de idade.");
+            } else {
+                console.log(pessoa.nome + " é menor de idade.");
+            }
+        }
+    </script>
+</body>
+
+</html>

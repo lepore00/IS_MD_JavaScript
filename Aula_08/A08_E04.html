@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 08 - Ex 04 (Array de Objetos)</title>
+</head>
+
+<body>
+    <h1>Aula 08 - Ex 04 (Array de Objetos)</h1>
+
+    <script>
+        // Array de objetos (lista de pessoas)
+        let pessoas = [
+            { nome: "Ana", idade: 22 },
+            { nome: "Bruno", idade: 30 },
+            { nome: "Carlos", idade: 27 }
+        ];
+
+        // Percorrendo o array com for...of
+        for (let pessoa of pessoas) {
+            console.log("Nome:", pessoa.nome, "- Idade:", pessoa.idade);
+        }
+    </script>
+</body>
+
+</html>

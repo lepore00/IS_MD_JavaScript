@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A02 - Sistema de Acesso</title>
+</head>
+<body>
+    <h1>Sistema de Verificação de Acesso</h1>
+    <p>Abra o <strong>Console</strong> do navegador (F12) para ver o resultado da classificação.</p>
+
+    <script>
+        // --- ETAPA 1: Entrada de Dados ---
+        
+        // Solicita a idade (convertendo para número)
+        let idade = Number(prompt("Por favor, digite sua idade:"));
+
+        // Solicita o status
+        // .toLowerCase() ajuda a aceitar "Registrado", "REGISTRADO" ou "registrado"
+        let statusDigitado = prompt("Digite seu status (registrado ou não registrado):");
+        let status = statusDigitado ? statusDigitado.toLowerCase().trim() : ""; 
+
+        console.log("--- DADOS RECEBIDOS ---");
+        console.log(`Idade: ${idade}`);
+        console.log(`Status: ${status}`);
+        console.log("-----------------------");
+
+
+        // --- ETAPA 2: Operador Ternário ---
+        // Requisito: Determinar se é maior ou menor de idade
+        // Sintaxe: (condição) ? "valor se verdadeiro" : "valor se falso"
+        
+        let classificacaoEtaria = (idade >= 18) ? "Maior de idade" : "Menor de idade";
+        console.log(`Classificação: ${classificacaoEtaria}`);
+
+
+        // --- ETAPA 3: Estrutura Switch ---
+        // Requisito: Exibir mensagem personalizada baseada no status
+        
+        console.log("Mensagem do Sistema:");
+        
+        switch (status) {
+            case "registrado":
+                console.log(">> Boas-vindas! Bom ver você novamente.");
+                break; // O break é essencial para parar a execução aqui
+            
+            case "não registrado":
+                console.log(">> Atenção: Por favor, complete o seu registro.");
+                break;
+            
+            default:
+                // "Qualquer outro valor" cai aqui
+                console.log(">> Erro: Status desconhecido.");
+                break;
+        }
+
+
+        // --- ETAPA 4: Operadores Lógicos (&& e ||) ---
+        // Requisito: Verificar nível de acesso
+        
+        console.log("-----------------------");
+        console.log("STATUS DE ACESSO FINAL:");
+
+        // Condição 1: Maior de idade E (&&) Registrado -> Acesso Completo
+        if (idade >= 18 && status === "registrado") {
+            console.log("✅ ACESSO COMPLETO CONCEDIDO");
+        }
+
+        // Condição 2: Menor de idade OU (||) Não Registrado -> Acesso Limitado
+        // Nota: Se o status for inválido, também cairá aqui pois é diferente de "registrado"
+        if (idade < 18 || status !== "registrado") {
+            console.log("🔒 ACESSO LIMITADO");
+        }
+
+    </script>
+</body>
+</html>

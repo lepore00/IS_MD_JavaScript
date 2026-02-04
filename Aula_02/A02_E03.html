@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Aula 02 - Ex 03 (Condicionais if / else if / else)</title>
+</head>
+
+<body>
+    <h1>Aula 02 - Ex 03 (Condicionais)</h1>
+
+    <script>
+        // 1) Pedimos um número ao usuário
+        let numero = Number(prompt("Digite um número:"));
+
+        // 2) Verificamos se é positivo, negativo ou zero
+        if (numero > 0) {
+            // Se cair aqui, a condição (numero > 0) foi verdadeira
+            console.log("O número é POSITIVO.");
+        } else if (numero < 0) {
+            // Se cair aqui, a condição anterior foi falsa e (numero < 0) foi verdadeira
+            console.log("O número é NEGATIVO.");
+        } else {
+            // Se cair aqui, nenhuma condição anterior foi verdadeira
+            console.log("O número é ZERO.");
+        }
+    </script>
+</body>
+
+</html>

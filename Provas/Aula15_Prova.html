@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSIA-A15 - Lista de Usuários com Validação</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        
+        h1 { text-align: center; color: #495057; }
+
+        /* Botão Principal */
+        #btnCarregar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 20px;
+        }
+        #btnCarregar:hover { background-color: #218838; }
+
+        /* Área de Mensagem de Erro */
+        #msgErro {
+            display: none; /* Oculto por padrão */
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Lista de Usuários */
+        ul { list-style: none; padding: 0; }
+        
+        li.item-usuario {
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        li.item-usuario:first-child { border-top-left-radius: 5px; border-top-right-radius: 5px; }
+        li.item-usuario:last-child { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-bottom: none; }
+        
+        .nome { font-size: 18px; font-weight: 600; color: #343a40; }
+        .email { font-size: 14px; color: #6c757d; margin-top: 5px; }
+
+        /* Estado de Carregando */
+        .loading { text-align: center; color: #6c757d; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gerenciador de Usuários</h1>
+
+        <button id="btnCarregar">Carregar Usuários</button>
+        
+        <div id="msgErro"></div>
+
+        <ul id="listaUsuarios">
+            </ul>
+    </div>
+
+    <script>
+        // --- SELETORES ---
+        const btnCarregar = document.getElementById('btnCarregar');
+        const listaUsuarios = document.getElementById('listaUsuarios');
+        const divErro = document.getElementById('msgErro');
+
+        // URL da API
+        const API_URL = 'https://jsonplaceholder.typicode.com/users';
+
+        // --- FUNÇÃO ASSÍNCRONA ---
+        async function carregarUsuarios() {
+            
+            // 1. Limpeza Inicial (Reset)
+            // Limpa a lista antiga e esconde erros antes de tentar de novo
+            listaUsuarios.innerHTML = '<li class="loading">Buscando dados...</li>';
+            divErro.style.display = 'none';
+            divErro.textContent = '';
+
+            try {
+                // --- REQUISIÇÃO À API ---
+                const response = await fetch(API_URL);
+
+                // --- VALIDAÇÃO DO STATUS HTTP (Requisito Crítico) ---
+                // response.ok retorna true se o status for 200-299.
+                // Se for false (ex: 404 ou 500), lançamos o erro manualmente.
+                if (!response.ok) {
+                    throw new Error(`Falha na requisição. Código: ${response.status}`);
+                }
+
+                // --- MANIPULAÇÃO DE DADOS ---
+                // Converte a resposta bruta para JSON
+                const usuarios = await response.json();
+
+                // Limpa o indicador de "Carregando..."
+                listaUsuarios.innerHTML = '';
+
+                // Verifica se a lista veio vazia
+                if (usuarios.length === 0) {
+                    listaUsuarios.innerHTML = '<li class="loading">Nenhum usuário encontrado.</li>';
+                    return;
+                }
+
+                // Loop para criar elementos dinamicamente
+                usuarios.forEach(usuario => {
+                    // 1. Criar elemento LI
+                    const li = document.createElement('li');
+                    li.className = 'item-usuario';
+
+                    // 2. Preencher conteúdo (Nome e Email)
+                    // Usando innerHTML para estruturar com classes
+                    li.innerHTML = `
+                        <span class="nome">${usuario.name}</span>
+                        <span class="email">📧 ${usuario.email}</span>
+                    `;
+
+                    // 3. Adicionar à lista (appendChild)
+                    listaUsuarios.appendChild(li);
+                });
+
+            } catch (erro) {
+                // --- TRATAMENTO DE ERROS ---
+                console.error("Erro capturado:", erro);
+
+                // Limpa a lista de "Carregando..."
+                listaUsuarios.innerHTML = '';
+
+                // Exibe a mensagem de erro na tela
+                divErro.style.display = 'block';
+                divErro.textContent = `Erro ao carregar os usuários: ${erro.message}. Tente novamente mais tarde.`;
+            }
+        }
+
+        // --- INTERATIVIDADE ---
+        btnCarregar.addEventListener('click', carregarUsuarios);
+
+    </script>
+</body>
+</html>

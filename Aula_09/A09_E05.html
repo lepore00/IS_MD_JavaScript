@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 09 - Ex 05 (Sistema de Aprovação)</title>
+</head>
+
+<body>
+    <h1>Aula 09 - Ex 05 (Sistema de Aprovação)</h1>
+
+    <script>
+        let alunos = [
+            { nome: "João", notas: [7, 8, 6] },
+            { nome: "Maria", notas: [9, 8, 10] },
+            { nome: "Pedro", notas: [5, 6, 4] }
+        ];
+
+        // Função para calcular média
+        function calcularMedia(notas) {
+            let soma = 0;
+
+            for (let i = 0; i < notas.length; i++) {
+                soma += notas[i];
+            }
+
+            return soma / notas.length;
+        }
+
+        // Percorrendo alunos
+        alunos.forEach(function (aluno) {
+            let media = calcularMedia(aluno.notas);
+
+            if (media >= 7) {
+                console.log(aluno.nome + " APROVADO - Média:", media);
+            } else {
+                console.log(aluno.nome + " REPROVADO - Média:", media);
+            }
+        });
+    </script>
+</body>
+
+</html>

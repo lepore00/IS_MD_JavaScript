@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 12 - Ex 01 (Local Storage Básico)</title>
+</head>
+
+<body>
+    <h1>Aula 12 - Ex 01 (Local Storage Básico)</h1>
+
+    <button id="salvar">Salvar Nome</button>
+    <button id="ler">Ler Nome</button>
+
+    <script>
+        let btnSalvar = document.getElementById("salvar");
+        let btnLer = document.getElementById("ler");
+
+        btnSalvar.addEventListener("click", function () {
+            localStorage.setItem("nome", "Carlos");
+            alert("Nome salvo no Local Storage!");
+        });
+
+        btnLer.addEventListener("click", function () {
+            let nome = localStorage.getItem("nome");
+            console.log("Nome salvo:", nome);
+        });
+    </script>
+</body>
+
+</html>

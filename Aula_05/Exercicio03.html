@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 1</title>
+</head>
+<body>
+    <h1>Exercício 1</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [10, 3, 4, 7, 2];
+        let total = 0;
+
+        for (let i = 0; i < numeros.length; i++) {
+            let n = numeros[i];
+            
+            if (n % 2 === 0) {
+                // Se par, soma ao total
+                total += n;
+            } else {
+                // Se ímpar, subtrai 1 do total
+                total -= 1;
+            }
+        }
+        console.log("Array original:", numeros);
+        console.log("Valor final do Total:", total);
+    </script>
+</body>
+</html>

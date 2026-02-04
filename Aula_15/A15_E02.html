@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 15 - Ex 02 (Paginação)</title>
+</head>
+
+<body>
+    <h1>Aula 15 - Ex 02 (Paginação)</h1>
+
+    <ul id="lista"></ul>
+    <button id="anterior">Anterior</button>
+    <button id="proximo">Próximo</button>
+
+    <script>
+        let lista = document.getElementById("lista");
+        let pagina = 1;
+        let limite = 5;
+
+        function carregarPagina() {
+            fetch("https://jsonplaceholder.typicode.com/posts?_page=" + pagina + "&_limit=" + limite)
+                .then(function (resposta) {
+                    return resposta.json();
+                })
+                .then(function (posts) {
+                    lista.innerHTML = "";
+
+                    posts.forEach(function (post) {
+                        let li = document.createElement("li");
+                        li.innerText = post.title;
+                        lista.appendChild(li);
+                    });
+                })
+                .catch(function (erro) {
+                    console.log("Erro:", erro);
+                });
+        }
+
+        document.getElementById("proximo").addEventListener("click", function () {
+            pagina++;
+            carregarPagina();
+        });
+
+        document.getElementById("anterior").addEventListener("click", function () {
+            if (pagina > 1) {
+                pagina--;
+                carregarPagina();
+            }
+        });
+
+        carregarPagina();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Projeto Final - Gerenciador de Tarefas</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #eaeaea;
+            margin-bottom: 5px;
+            padding: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .erro {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Gerenciador de Tarefas</h1>
+
+    <div class="container">
+        <p class="erro" id="erro"></p>
+
+        <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+        <button id="adicionar">Adicionar</button>
+
+        <input type="text" id="busca" placeholder="Buscar tarefa">
+
+        <ul id="lista"></ul>
+    </div>
+
+    <script>
+        // ===== SELEÇÃO DE ELEMENTOS =====
+        let inputTarefa = document.getElementById("tarefa");
+        let botaoAdicionar = document.getElementById("adicionar");
+        let lista = document.getElementById("lista");
+        let busca = document.getElementById("busca");
+        let erro = document.getElementById("erro");
+
+        // ===== CARREGANDO DADOS DO LOCAL STORAGE =====
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        // ===== FUNÇÃO PARA SALVAR NO LOCAL STORAGE =====
+        function salvarTarefas() {
+            localStorage.setItem("tarefas", JSON.stringify(tarefas));
+        }
+
+        // ===== FUNÇÃO PARA RENDERIZAR LISTA =====
+        function renderizar(listaFiltrada = tarefas) {
+            lista.innerHTML = "";
+
+            if (listaFiltrada.length === 0) {
+                let li = document.createElement("li");
+                li.innerText = "Nenhuma tarefa encontrada.";
+                lista.appendChild(li);
+                return;
+            }
+
+            listaFiltrada.forEach(function (tarefa, index) {
+                let li = document.createElement("li");
+                let texto = document.createElement("span");
+                let botaoExcluir = document.createElement("button");
+
+                texto.innerText = tarefa;
+                botaoExcluir.innerText = "Excluir";
+
+                // Evento para remover tarefa
+                botaoExcluir.addEventListener("click", function () {
+                    tarefas.splice(index, 1);
+                    salvarTarefas();
+                    renderizar();
+                });
+
+                li.appendChild(texto);
+                li.appendChild(botaoExcluir);
+                lista.appendChild(li);
+            });
+        }
+
+        // ===== EVENTO PARA ADICIONAR TAREFA =====
+        botaoAdicionar.addEventListener("click", function () {
+            try {
+                let texto = inputTarefa.value.trim();
+
+                if (!texto) {
+                    throw "A tarefa não pode estar vazia.";
+                }
+
+                tarefas.push(texto);
+                salvarTarefas();
+                renderizar();
+
+                inputTarefa.value = "";
+                erro.innerText = "";
+            } catch (e) {
+                erro.innerText = e;
+            }
+        });
+
+        // ===== EVENTO DE BUSCA =====
+        busca.addEventListener("input", function () {
+            let termo = busca.value.toLowerCase();
+
+            let filtradas = tarefas.filter(function (tarefa) {
+                return tarefa.toLowerCase().includes(termo);
+            });
+
+            renderizar(filtradas);
+        });
+
+        // ===== RENDERIZA AO CARREGAR =====
+        renderizar();
+    </script>
+
+</body>
+
+</html>

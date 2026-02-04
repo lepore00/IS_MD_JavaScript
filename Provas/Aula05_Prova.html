@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício JSIA-A05 - Gerenciador de Tarefas</title>
+</head>
+<body>
+    <h1>Gerenciador de Tarefas</h1>
+    <p>O sistema funciona através de janelas interativas (Prompts).</p>
+    <p>Use o menu para Adicionar, Listar, Remover ou Concluir tarefas.</p>
+    <p><em>Dica: Abra o Console (F12) para ver o histórico de ações.</em></p>
+
+    <script>
+        // Array para armazenar as tarefas
+        let tarefas = [];
+
+        // Variável de controle do loop
+        let executando = true;
+
+        while (executando) {
+            
+            // Menu principal
+            let menu = "=== GERENCIADOR DE TAREFAS ===\n" +
+                       "1. Adicionar Tarefa\n" +
+                       "2. Listar Tarefas\n" +
+                       "3. Remover Tarefa\n" +
+                       "4. Concluir Tarefa (Marcar com ✅)\n" +
+                       "5. Sair\n\n" +
+                       "Digite a opção desejada:";
+            
+            let opcao = prompt(menu);
+
+            switch (opcao) {
+                
+                // --- 1. ADICIONAR (push) ---
+                case "1":
+                    let novaTarefa = prompt("Digite o nome da nova tarefa:");
+                    
+                    if (novaTarefa && novaTarefa.trim() !== "") {
+                        // O método push adiciona ao final do array
+                        tarefas.push(novaTarefa);
+                        console.log(`Tarefa adicionada: "${novaTarefa}"`);
+                        alert("Tarefa adicionada com sucesso!");
+                    } else {
+                        alert("Nome da tarefa inválido.");
+                    }
+                    break;
+
+
+                // --- 2. LISTAR (for) ---
+                case "2":
+                    // Verificação se a lista está vazia
+                    if (tarefas.length === 0) {
+                        alert("A lista está vazia!");
+                    } else {
+                        let listaTexto = "--- SUAS TAREFAS ---\n";
+                        
+                        // Loop FOR para percorrer e montar o texto
+                        for (let i = 0; i < tarefas.length; i++) {
+                            listaTexto += `Índice [${i}]: ${tarefas[i]}\n`;
+                        }
+                        
+                        alert(listaTexto);
+                        console.log("Listagem exibida para o usuário.");
+                    }
+                    break;
+
+
+                // --- 3. REMOVER (splice) ---
+                case "3":
+                    if (tarefas.length === 0) {
+                        alert("Não há tarefas para remover.");
+                    } else {
+                        // Primeiro mostramos a lista para o usuário saber o índice
+                        let textoRemover = "Qual o índice da tarefa que deseja REMOVER?\n\n";
+                        for (let i = 0; i < tarefas.length; i++) {
+                            textoRemover += `[${i}] ${tarefas[i]}\n`;
+                        }
+
+                        let indiceRemover = parseInt(prompt(textoRemover));
+
+                        // Validação do índice
+                        if (indiceRemover >= 0 && indiceRemover < tarefas.length) {
+                            // splice(indice, 1) remove 1 elemento naquela posição
+                            let removido = tarefas.splice(indiceRemover, 1);
+                            
+                            console.log(`Tarefa removida: "${removido}"`);
+                            alert(`Tarefa removida com sucesso!`);
+                        } else {
+                            alert("Índice inválido!");
+                        }
+                    }
+                    break;
+
+
+                // --- 4. CONCLUIR (Modificar String) ---
+                case "4":
+                    if (tarefas.length === 0) {
+                        alert("Não há tarefas para concluir.");
+                    } else {
+                        let textoConcluir = "Qual o índice da tarefa CONCLUÍDA?\n\n";
+                        for (let i = 0; i < tarefas.length; i++) {
+                            textoConcluir += `[${i}] ${tarefas[i]}\n`;
+                        }
+
+                        let indiceConcluir = parseInt(prompt(textoConcluir));
+
+                        if (indiceConcluir >= 0 && indiceConcluir < tarefas.length) {
+                            let tarefaAtual = tarefas[indiceConcluir];
+
+                            // Verifica se já não está concluída para não repetir o ícone
+                            if (tarefaAtual.includes("✅")) {
+                                alert("Esta tarefa já está marcada como concluída!");
+                            } else {
+                                // Atualiza a string adicionando o ícone no início
+                                tarefas[indiceConcluir] = "✅ " + tarefaAtual;
+                                
+                                console.log(`Tarefa concluída: ${tarefas[indiceConcluir]}`);
+                                alert("Tarefa marcada como concluída!");
+                            }
+                        } else {
+                            alert("Índice inválido!");
+                        }
+                    }
+                    break;
+
+
+                // --- 5. SAIR ---
+                case "5":
+                case null: // Captura botão cancelar
+                    executando = false;
+                    alert("Saindo do sistema...");
+                    console.log("Sistema encerrado pelo usuário.");
+                    break;
+
+                default:
+                    alert("Opção inválida, tente novamente.");
+            }
+        }
+    </script>
+</body>
+</html>

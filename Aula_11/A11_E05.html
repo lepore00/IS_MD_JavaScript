@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Aula 11 - Ex 05 (Prevent Default)</title>
+</head>
+
+<body>
+    <h1>Aula 11 - Ex 05 (Prevent Default)</h1>
+
+    <form id="formulario">
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <p id="resultado"></p>
+
+    <script>
+        let form = document.getElementById("formulario");
+        let resultado = document.getElementById("resultado");
+
+        form.addEventListener("submit", function (event) {
+            // Impede o envio padrão
+            event.preventDefault();
+
+            let nome = document.getElementById("nome").value;
+            resultado.innerText = "Nome digitado: " + nome;
+        });
+    </script>
+</body>
+
+</html>

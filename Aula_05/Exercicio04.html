@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 2</title>
+</head>
+<body>
+    <h1>Exercício 2</h1>
+    <p>Verifique o resultado no Console (F12).</p>
+    <script>
+        let numeros = [3, 4, 9, 5, 12, 7];
+        let acumulador = 0;
+
+        for (let i = 0; i < numeros.length; i++) {
+            let n = numeros[i];
+
+            // Se for múltiplo de 3, ignora (pula para o próximo)
+            if (n % 3 === 0) {
+                continue;
+            }
+
+            // Para os demais, soma
+            acumulador += n;
+        }
+
+        console.log("Array original:", numeros);
+        console.log("Valor final do Acumulador:", acumulador);
+    </script>
+</body>
+</html>
